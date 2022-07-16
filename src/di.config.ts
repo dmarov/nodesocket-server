@@ -1,14 +1,11 @@
 import { Container } from "inversify";
-import { RamDb } from "./core/db/ram-db";
-import { SocketHandler } from "./core/socket-handler";
+import { IRamDb, RamDb } from "./core/db/ram-db";
+import { ISocketHandler, SocketHandler } from "./core/socket-handler";
+import { TYPES } from "./types";
 
-export const TYPES = {
-  RamDb: Symbol.for("RamDb"),
-  SocketHandler: Symbol.for("SocketHandler"),
-};
+const instance = new Container();
 
-const container = new Container();
-container.bind<RamDb>(TYPES.RamDb).to(RamDb).inSingletonScope();
-container.bind<SocketHandler>(TYPES.SocketHandler).to(SocketHandler);
+instance.bind<ISocketHandler>(TYPES.ISocketHandler).to(SocketHandler);
+instance.bind<IRamDb>(TYPES.IRamDb).to(RamDb);
 
-export { container };
+export const container = instance;

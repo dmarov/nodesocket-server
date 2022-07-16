@@ -1,11 +1,16 @@
 import { inject, injectable } from "inversify";
 import { Socket } from "socket.io";
-import { TYPES } from "../di.config";
-import { RamDb } from "./db/ram-db";
+import { TYPES } from "../types";
+import { IRamDb } from "./db/ram-db";
 import { ClientMessageTypes } from "./shared-models/client-message-types";
 
+export interface ISocketHandler {
+
+  start(socket: Socket): void;
+}
+
 @injectable()
-export class SocketHandler {
+export class SocketHandler implements ISocketHandler {
   private readonly onDisconnect = () => {
     console.log("client disconnected");
   };
@@ -15,7 +20,8 @@ export class SocketHandler {
     this.ramDb.add("messages", []);
   };
 
-  @inject(TYPES.RamDb) private readonly ramDb: RamDb;
+  @inject(TYPES.IRamDb)
+  private readonly ramDb: IRamDb;
 
   start(socket: Socket) {
     socket.on(ClientMessageTypes.Disconnect, this.onDisconnect);

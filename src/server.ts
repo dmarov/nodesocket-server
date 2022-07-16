@@ -2,16 +2,20 @@ import "./polyfills";
 import { Server, Socket } from "socket.io";
 import http, { Server as HttpServer } from "http";
 import { args } from "./utils/args";
-import { SocketHandler } from "./core/socket-handler";
-import { container, TYPES } from "./di.config";
+import { container } from "./di.config";
+import { ISocketHandler } from "./core/socket-handler";
+import { TYPES } from "./types";
+
+console.log(container.get<ISocketHandler>(TYPES.ISocketHandler));
 
 class SocketServer {
   private readonly server: HttpServer;
   private readonly io: Server;
 
   private readonly onConnection = (socket: Socket) => {
-    const handler = container.get<SocketHandler>(TYPES.SocketHandler);
-    handler.start(socket);
+    console.log(socket);
+    // const handler = container.get<ISocketHandler>(TYPES.ISocketHandler);
+    // handler.start(socket);
   };
 
   constructor() {
