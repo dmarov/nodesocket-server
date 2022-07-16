@@ -1,9 +1,10 @@
 import Joi from "joi";
-import { ServerMessageTypes } from "../shared-models/server-message-types";
 import { inject, injectable } from "inversify";
 import { PlainDb } from "../plain-db/plain-db";
 import { Message } from "../shared-models/message";
 import { TYPES } from "../../di/types";
+import { Response } from "../../models/core/response";
+import { ServerMessageTypes } from "../../models/core/server-message-types";
 
 @injectable()
 export class MessageHandlerService {
@@ -17,7 +18,7 @@ export class MessageHandlerService {
   @inject(TYPES.PlainDb)
   private readonly plainDb: PlainDb;
 
-  addMessage(payload: string): {type: ServerMessageTypes, payload: unknown} {
+  addMessage(payload: string): Response {
     const obj: unknown = JSON.parse(payload);
     const error = this.messageSchema.validate(obj).error;
     if (error) {

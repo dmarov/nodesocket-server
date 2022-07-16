@@ -1,9 +1,9 @@
 import { inject, injectable } from "inversify";
 import { Socket } from "socket.io";
 import { TYPES } from "../../../di/types";
-import { ClientMessageTypes } from "../../shared-models/client-message-types";
 import { SocketHandler } from "../socket-handler";
 import { MessageHandlerService } from "../../services/message-handler-service";
+import { ClientMessageTypes } from "../../../models/core/client-message-types";
 
 @injectable()
 export class MessageSocketHandler implements SocketHandler {
