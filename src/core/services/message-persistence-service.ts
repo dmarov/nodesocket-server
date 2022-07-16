@@ -12,14 +12,22 @@ export class MessagePersistenceService {
   @inject(TYPES.PlainDb)
   private readonly plainDb: PlainDb;
 
-  addMessage(message: Message): Result<Message, IdentifiableError> {
+  addMessage(message: Message): Result<Message[], IdentifiableError> {
     return this.plainDb.get<Message[]>(this.dbKey)
       .unwrap(messages => {
         messages.push(message);
-        this.plainDb.update(this.dbKey, messages);
-        return Result<Message, IdentifiableError>.success(message);
+        return this.updateMesages(messages);
       }, (error) => {
-        return Result.error<Message, IdentifiableError>(error);
+        return Result.error<Message[], IdentifiableError>(error);
+      });
+  }
+
+  private updateMesages(messages: Message[]): Result<Message[], IdentifiableError> {
+    return this.plainDb.update(this.dbKey, messages)
+      .unwrap((success) => {
+        return Result.success<Message[], IdentifiableError>(success);
+      }, (error) => {
+        return Result.error<Message[], IdentifiableError>(error);
       });
   }
 }
