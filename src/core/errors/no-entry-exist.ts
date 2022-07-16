@@ -1,4 +1,4 @@
-import { IdentifiableError } from "../../errors/identifiable-error";
+import { IdentifiableError } from "./identifiable-error";
 import { RamDbErrorCodes } from "./codes";
 
 export class NoEntryExistError extends IdentifiableError {

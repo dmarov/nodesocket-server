@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 import { Result } from "../../../models/core/result";
 import { IdentifiableError } from "../../errors/identifiable-error";
-import { EntryExistError } from "../errors/entry-exist";
-import { NoEntryExistError } from "../errors/no-entry-exist";
+import { EntryExistError } from "../../../core/errors/entry-exist";
+import { NoEntryExistError } from "../../../core/errors/no-entry-exist";
 import { PlainDb } from "../plain-db";
 
 @injectable()
