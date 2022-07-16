@@ -1,4 +1,6 @@
 import { injectable } from "inversify";
+import { Result } from "../../../models/core/result";
+import { IdentifiableError } from "../../errors/identifiable-error";
 import { EntryExistError } from "../errors/entry-exist";
 import { NoEntryExistError } from "../errors/no-entry-exist";
 import { PlainDb } from "../plain-db";
@@ -7,42 +9,42 @@ import { PlainDb } from "../plain-db";
 export class RamDb implements PlainDb {
   private readonly entries: {[key: string]: unknown} = {};
 
-  add<T>(key: string, value: T): T {
+  add<T>(key: string, value: T): Result<T, IdentifiableError> {
     if (this.hasEntry((key))) {
-      throw new EntryExistError();
+      return Result.error(new EntryExistError());
     }
 
     this.entries[key] = value;
 
-    return this.entries[key] as T;
+    return Result.success(this.entries[key] as T);
   }
 
-  update<T>(key: string, value: T): T {
+  update<T>(key: string, value: T): Result<T, IdentifiableError> {
     if (!this.hasEntry(key)) {
-      throw new NoEntryExistError();
+      return Result.error(new NoEntryExistError());
     }
 
     this.entries[key] = value;
 
-    return this.entries[key] as T;
+    return Result.success(this.entries[key] as T);
   }
 
-  delete<T>(key: string, value: T): T {
+  delete<T>(key: string, value: T): Result<T, IdentifiableError> {
     if (!this.hasEntry(key)) {
-      throw new NoEntryExistError();
+      return Result.error(new NoEntryExistError());
     }
 
     this.entries[key] = value;
 
-    return this.entries[key] as T;
+    return Result.success(this.entries[key] as T);
   }
 
-  get<T>(key: string): T {
+  get<T>(key: string): Result<T, IdentifiableError> {
     if (!this.hasEntry(key)) {
-      throw new NoEntryExistError();
+      return Result.error(new NoEntryExistError());
     }
 
-    return this.entries[key] as T;
+    return Result.success(this.entries[key] as T);
   }
 
   private hasEntry(key: string): boolean {
