@@ -1,21 +1,24 @@
+import { inject, injectable } from "inversify";
 import { Socket } from "socket.io";
-import { ClientMessageTypes } from "./client-message-types";
+import { TYPES } from "../di.config";
+import { RamDb } from "./db/ram-db";
+import { ClientMessageTypes } from "./shared-models/client-message-types";
 
+@injectable()
 export class SocketHandler {
   private readonly onDisconnect = () => {
     console.log("client disconnected");
   };
 
-  private readonly onAddMessage = () => {
-    console.log("client requested add message");
+  private readonly onAddMessage = (payload: string) => {
+    console.log(payload);
+    this.ramDb.add("messages", []);
   };
 
-  constructor(
-    private readonly socket: Socket,
-  ) { }
+  @inject(TYPES.RamDb) private readonly ramDb: RamDb;
 
-  start() {
-    this.socket.on(ClientMessageTypes.Disconnect, this.onDisconnect);
-    this.socket.on(ClientMessageTypes.AddMessage, this.onAddMessage);
+  start(socket: Socket) {
+    socket.on(ClientMessageTypes.Disconnect, this.onDisconnect);
+    socket.on(ClientMessageTypes.AddMessage, this.onAddMessage);
   }
 }

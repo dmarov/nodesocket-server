@@ -1,4 +1,4 @@
-import { ErrorWithCode } from "../../core/errors/error-with-code";
+import { ErrorWithCode } from "../../../core/errors/error-with-code";
 import { RamDbErrorCodes } from "./codes";
 
 export class NoEntryExistError extends ErrorWithCode {

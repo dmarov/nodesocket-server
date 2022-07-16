@@ -1,8 +1,10 @@
+import { injectable } from "inversify";
 import { EntryExistError } from "./errors/entry-exist";
 import { NoEntryExistError } from "./errors/no-entry-exist";
 
+@injectable()
 export class RamDb {
-  private entries: {[key: string]: unknown} = {};
+  private readonly entries: {[key: string]: unknown} = {};
 
   add<T>(key: string, value: T): T {
     if (this.hasEntry((key))) {
