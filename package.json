@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run lint && tsc",
+    "start": "node dist/server.js",
     "dev": "npm run lint && ts-node-dev src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx eslint . --ext .ts",
