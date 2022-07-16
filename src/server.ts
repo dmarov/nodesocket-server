@@ -1,4 +1,4 @@
-import "reflect-metadata";
+import "./polyfills";
 import { Server, Socket } from "socket.io";
 import http, { Server as HttpServer } from "http";
 import { args } from "./utils/args";

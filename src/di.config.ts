@@ -8,7 +8,7 @@ export const TYPES = {
 };
 
 const container = new Container();
-container.bind<RamDb>(TYPES.RamDb).to(RamDb);
+container.bind<RamDb>(TYPES.RamDb).to(RamDb).inSingletonScope();
 container.bind<SocketHandler>(TYPES.SocketHandler).to(SocketHandler);
 
 export { container };
