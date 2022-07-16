@@ -1,13 +1,13 @@
-import { ErrorWithCode } from "../../../core/errors/error-with-code";
+import { IdentifiableError } from "../../errors/identifiable-error";
 import { RamDbErrorCodes } from "./codes";
 
-export class NoEntryExistError extends ErrorWithCode {
+export class NoEntryExistError extends IdentifiableError {
   constructor() {
     super("no DB entry already exists");
     this.name = "NoEntryExistError";
   }
 
-  getCode(): number {
+  getId(): number {
     return RamDbErrorCodes.NoEntryExist;
   }
 }

@@ -3,19 +3,16 @@ import { Server, Socket } from "socket.io";
 import http, { Server as HttpServer } from "http";
 import { args } from "./utils/args";
 import { container } from "./di.config";
-import { ISocketHandler } from "./core/socket-handler";
 import { TYPES } from "./types";
-
-console.log(container.get<ISocketHandler>(TYPES.ISocketHandler));
+import { SocketHandler } from "./core/socket-handler/socket-handler";
 
 class SocketServer {
   private readonly server: HttpServer;
   private readonly io: Server;
 
   private readonly onConnection = (socket: Socket) => {
-    console.log(socket);
-    // const handler = container.get<ISocketHandler>(TYPES.ISocketHandler);
-    // handler.start(socket);
+    const handler = container.get<SocketHandler>(TYPES.SocketHandler);
+    handler.start(socket);
   };
 
   constructor() {

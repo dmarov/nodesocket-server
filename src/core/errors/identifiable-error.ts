@@ -1,5 +1,5 @@
-export abstract class ErrorWithCode extends Error {
-  abstract getCode(): number;
+export abstract class IdentifiableError extends Error {
+  abstract getId(): number;
 
   constructor(message?: string) {
     super(message);

@@ -1,4 +1,4 @@
 export const TYPES = {
-  IRamDb: Symbol.for("IRamDb"),
-  ISocketHandler: Symbol.for("ISocketHandler"),
+  PlainDb: Symbol.for("IRamDb"),
+  SocketHandler: Symbol.for("ISocketHandler"),
 };

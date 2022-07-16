@@ -1,16 +1,10 @@
 import { injectable } from "inversify";
-import { EntryExistError } from "./errors/entry-exist";
-import { NoEntryExistError } from "./errors/no-entry-exist";
-
-export interface IRamDb {
-  add<T>(key: string, value: T): T;
-  update<T>(key: string, value: T): T;
-  delete<T>(key: string, value: T): T;
-  get<T>(key: string): T;
-}
+import { EntryExistError } from "../errors/entry-exist";
+import { NoEntryExistError } from "../errors/no-entry-exist";
+import { PlainDb } from "../plain-db";
 
 @injectable()
-export class RamDb implements IRamDb {
+export class RamDb implements PlainDb {
   private readonly entries: {[key: string]: unknown} = {};
 
   add<T>(key: string, value: T): T {
