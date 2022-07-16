@@ -18,7 +18,7 @@ export class MessageHandlerService {
     const result = this.messageValidationService.validateMessage(payload);
 
     return result.unwrap<Response>((message) => {
-      return this.processMessage(message);
+      return this.addValidatedMessage(message);
     }, (error) => {
       return {
         type: ServerMessageTypes.AddMessageError,
@@ -27,7 +27,7 @@ export class MessageHandlerService {
     });
   }
 
-  private processMessage(message: Message): Response {
+  private addValidatedMessage(message: Message): Response {
     const result = this.messagePersistenceService.addMessage(message);
 
     return result.unwrap<Response>((success) => {
