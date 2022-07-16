@@ -30,11 +30,12 @@ export class MessageSocketServer implements SocketServer {
       },
     });
 
-    this.plainDb.add("messages", []);
     this.io.on("connection", this.onConnection);
   }
 
   listen() {
+    this.plainDb.add("messages", []);
+
     this.server.listen(args.port, () => {
       console.log(`listening on ${args.port}`);
     });
