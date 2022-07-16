@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { Socket } from "socket.io";
-import { TYPES } from "../../../types";
+import { TYPES } from "../../../di/types";
 import { PlainDb } from "../../plain-db/plain-db";
 import { ClientMessageTypes } from "../../shared-models/client-message-types";
 import { SocketHandler } from "../socket-handler";
@@ -11,9 +11,9 @@ export class MessageSocketHandler implements SocketHandler {
     console.log("client disconnected");
   };
 
-  private readonly onAddMessage = (payload: string) => {
-    console.log(payload);
-    this.plainDb.add("messages", []);
+  private readonly onAddMessage = () => {
+    console.log("ADD REQUEST");
+    this.plainDb.get("messages");
   };
 
   @inject(TYPES.PlainDb)

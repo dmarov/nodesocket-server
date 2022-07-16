@@ -1,12 +1,15 @@
-import "./polyfills";
 import { Server, Socket } from "socket.io";
 import http, { Server as HttpServer } from "http";
 import { args } from "./utils/args";
-import { container } from "./di.config";
-import { TYPES } from "./types";
+import { container } from "./di/config";
+import { TYPES } from "./di/types";
 import { SocketHandler } from "./core/socket-handler/socket-handler";
+import { inject, injectable } from "inversify";
+import { PlainDb } from "./core/plain-db/plain-db";
+import { SocketServer } from "./socket-server";
 
-class SocketServer {
+@injectable()
+export class MessageSocketServer implements SocketServer {
   private readonly server: HttpServer;
   private readonly io: Server;
 
@@ -14,6 +17,9 @@ class SocketServer {
     const handler = container.get<SocketHandler>(TYPES.SocketHandler);
     handler.start(socket);
   };
+
+  @inject(TYPES.PlainDb)
+  private readonly plainDb: PlainDb;
 
   constructor() {
     this.server = http.createServer();
@@ -24,6 +30,7 @@ class SocketServer {
       },
     });
 
+    this.plainDb.add("messages", []);
     this.io.on("connection", this.onConnection);
   }
 
@@ -33,7 +40,3 @@ class SocketServer {
     });
   }
 }
-
-const server = new SocketServer();
-
-server.listen();
