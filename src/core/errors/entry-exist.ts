@@ -1,5 +1,5 @@
 import { IdentifiableError } from "./identifiable-error";
-import { RamDbErrorCodes } from "./codes";
+import { ErrorCodes } from "./codes";
 
 export class EntryExistError extends IdentifiableError {
   constructor() {
@@ -8,6 +8,6 @@ export class EntryExistError extends IdentifiableError {
   }
 
   getId(): number {
-    return RamDbErrorCodes.EntryExist;
+    return ErrorCodes.EntryExist;
   }
 }

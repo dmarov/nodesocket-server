@@ -2,6 +2,7 @@ import Joi from "joi";
 import { injectable } from "inversify";
 import { Result } from "../../models/core/result";
 import { Message } from "../shared-models/message";
+import { ValidationError } from "../errors/validation";
 
 @injectable()
 export class MessageValidationService {
@@ -12,14 +13,14 @@ export class MessageValidationService {
       .required()
   });
 
-  validateMessage(payload: string): Result<Message, Joi.ValidationError> {
+  validateMessage(payload: string): Result<Message, ValidationError> {
     const obj: unknown = JSON.parse(payload);
     const error = this.messageSchema.validate(obj).error;
 
     if (error) {
-      return Result.error<Message, Joi.ValidationError>(error);
+      return Result.error<Message, ValidationError>(new ValidationError(error));
     } else {
-      return Result.success<Message, Joi.ValidationError>(obj as Message);
+      return Result.success<Message, ValidationError>(obj as Message);
     }
   }
 }
