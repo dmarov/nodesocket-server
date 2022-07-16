@@ -31,6 +31,10 @@ export class MessageSocketHandler implements SocketHandler {
     });
 
     this.socket.emit(response.type, response.payload);
+
+    this.messageHandlerService.getMessages().unwrap((messages) => {
+      this.socket.broadcast.emit(ServerMessageTypes.UpdateAllMessages, JSON.stringify(messages));
+    }, () => { });
   };
 
   @inject(TYPES.MessageHandlerService)
@@ -38,6 +42,11 @@ export class MessageSocketHandler implements SocketHandler {
 
   start(socket: Socket) {
     this.socket = socket;
+
+    this.messageHandlerService.getMessages().unwrap((messages) => {
+      this.socket.emit(ServerMessageTypes.UpdateAllMessages, JSON.stringify(messages));
+    }, () => { });
+
     socket.on(ClientMessageTypes.Disconnect, this.onDisconnect);
     socket.on(ClientMessageTypes.AddMessage, this.onAddMessage);
   }

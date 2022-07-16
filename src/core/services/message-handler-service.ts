@@ -25,6 +25,10 @@ export class MessageHandlerService {
       });
   }
 
+  getMessages(): Result<DbMessage[], IdentifiableError> {
+    return this.messagePersistenceService.getMessages();
+  }
+
   private addValidatedMessage(message: Message) {
     return this.messagePersistenceService.addMessage(message)
       .unwrap((success) => {

@@ -1,6 +1,6 @@
 export enum ServerMessageTypes {
   AddMessageSuccess = "add-message-success",
   AddMessageError = "add-message-error",
-  BroadcastAllMessages = "get-all-messages",
+  UpdateAllMessages = "update-all-messages",
   Disconnect = "disconnect",
 }

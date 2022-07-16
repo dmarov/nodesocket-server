@@ -35,6 +35,10 @@ export class MessagePersistenceService {
       });
   }
 
+  getMessages(): Result<DbMessage[], IdentifiableError> {
+    return this.plainDb.get<DbMessage[]>(this.dbKey);
+  }
+
   private updateMesages(messages: DbMessage[]): Result<DbMessage[], IdentifiableError> {
     return this.plainDb.update(this.dbKey, messages)
       .unwrap((success) => {
