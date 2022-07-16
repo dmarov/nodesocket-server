@@ -11,6 +11,7 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.log("user connected");
+  console.log(socket);
 });
 
 server.listen(4000, () => {
