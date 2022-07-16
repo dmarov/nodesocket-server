@@ -22,12 +22,12 @@ export class MessageSocketHandler implements SocketHandler {
       return {
         type: ServerMessageTypes.AddMessageSuccess,
         payload: JSON.stringify(success),
-      }
+      };
     }, (error) => {
       return {
         type: ServerMessageTypes.AddMessageError,
         payload: JSON.stringify(error),
-      }
+      };
     });
 
     this.socket.emit(response.type, response.payload);
