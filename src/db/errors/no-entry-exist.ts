@@ -2,12 +2,12 @@ import { ErrorWithCode } from "../../core/errors/error-with-code";
 import { RamDbErrorCodes } from "./codes";
 
 export class NoEntryExistError extends ErrorWithCode {
-  constructor () {
+  constructor() {
     super("no DB entry already exists");
     this.name = "NoEntryExistError";
   }
 
-  getCode (): number {
+  getCode(): number {
     return RamDbErrorCodes.NoEntryExist;
   }
 }

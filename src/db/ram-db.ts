@@ -4,7 +4,7 @@ import { NoEntryExistError } from "./errors/no-entry-exist";
 export class RamDb {
   private entries: {[key: string]: unknown} = {};
 
-  add<T> (key: string, value: T): T {
+  add<T>(key: string, value: T): T {
     if (this.hasEntry((key))) {
       throw new EntryExistError();
     }
@@ -14,7 +14,7 @@ export class RamDb {
     return this.entries[key] as T;
   }
 
-  update<T> (key: string, value: T): T {
+  update<T>(key: string, value: T): T {
     if (!this.hasEntry(key)) {
       throw new NoEntryExistError();
     }
@@ -24,7 +24,7 @@ export class RamDb {
     return this.entries[key] as T;
   }
 
-  delete<T> (key: string, value: T): T {
+  delete<T>(key: string, value: T): T {
     if (!this.hasEntry(key)) {
       throw new NoEntryExistError();
     }
@@ -34,7 +34,7 @@ export class RamDb {
     return this.entries[key] as T;
   }
 
-  get<T> (key: string): T {
+  get<T>(key: string): T {
     if (!this.hasEntry(key)) {
       throw new NoEntryExistError();
     }
@@ -42,7 +42,7 @@ export class RamDb {
     return this.entries[key] as T;
   }
 
-  private hasEntry (key: string) {
+  private hasEntry(key: string) {
     return Object.keys(this.entries).includes(key);
   }
 }
