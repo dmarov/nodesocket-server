@@ -1,3 +1,3 @@
-import { ServerMessageTypes } from "../../core/shared-models/server-message-types";
+import { ServerMessageTypes } from "./server-message-types";
 
 export type Response = { type: ServerMessageTypes, payload: string };

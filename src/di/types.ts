@@ -3,4 +3,5 @@ export const TYPES = {
   SocketHandler: Symbol.for("SocketHandler"),
   SocketServer: Symbol.for("SocketServer"),
   MessageHandlerService: Symbol.for("MessageHandlerService"),
+  MessagePersistenceService: Symbol.for("MessagePersistenceService"),
 };

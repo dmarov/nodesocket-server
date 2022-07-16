@@ -1,10 +1,10 @@
 import Joi from "joi";
 import { inject, injectable } from "inversify";
-import { PlainDb } from "../plain-db/plain-db";
 import { Message } from "../shared-models/message";
 import { TYPES } from "../../di/types";
 import { Response } from "../../models/core/response";
 import { ServerMessageTypes } from "../../models/core/server-message-types";
+import { MessagePersistenceService } from "./message-persistence-service";
 
 @injectable()
 export class MessageHandlerService {
@@ -15,12 +15,13 @@ export class MessageHandlerService {
       .required()
   });
 
-  @inject(TYPES.PlainDb)
-  private readonly plainDb: PlainDb;
+  @inject(TYPES.MessagePersistenceService)
+  private readonly messagePersistenceService: MessagePersistenceService;
 
   addMessage(payload: string): Response {
     const obj: unknown = JSON.parse(payload);
     const error = this.messageSchema.validate(obj).error;
+
     if (error) {
       return {
         type: ServerMessageTypes.AddMessageError,
@@ -29,15 +30,18 @@ export class MessageHandlerService {
     }
 
     const message = obj as Message;
+    const result = this.messagePersistenceService.addMessage(message);
 
-    const messages = this.plainDb.get<Message[]>("messages");
-
-    messages.push(message);
-    const addedMessage = this.plainDb.update("messages", messages);
-
-    return {
-      type: ServerMessageTypes.AddMessageSuccess,
-      payload: JSON.stringify(addedMessage),
-    };
+    return result.unwrap<Response>((success) => {
+      return {
+        type: ServerMessageTypes.AddMessageSuccess,
+        payload: JSON.stringify(success),
+      };
+    }, (error) => {
+      return {
+        type: ServerMessageTypes.AddMessageError,
+        payload: JSON.stringify(error),
+      };
+    });
   }
 }

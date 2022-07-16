@@ -2,6 +2,7 @@ import { Container } from "inversify";
 import { RamDb } from "../core/plain-db/impl/ram-db";
 import { PlainDb } from "../core/plain-db/plain-db";
 import { MessageHandlerService } from "../core/services/message-handler-service";
+import { MessagePersistenceService } from "../core/services/message-persistence-service";
 import { MessageSocketHandler } from "../core/socket-handler/impl/message-socket-handler";
 import { SocketHandler } from "../core/socket-handler/socket-handler";
 import { MessageSocketServer } from "../message-socket-server";
@@ -22,5 +23,8 @@ container.bind<PlainDb>(TYPES.PlainDb)
 
 container.bind<MessageHandlerService>(TYPES.MessageHandlerService)
   .to(MessageHandlerService);
+
+container.bind<MessagePersistenceService>(TYPES.MessagePersistenceService)
+  .to(MessagePersistenceService);
 
 export { container };
