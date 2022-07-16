@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import http from "http";
 import { args } from "./utils/args";
+import { SocketHandler } from "./core/socket-handler";
 
 const server = http.createServer();
 const io = new Server(server, {
@@ -10,10 +11,10 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("user connected");
-  console.log(socket);
+  const handler = new SocketHandler(socket);
+  handler.start();
 });
 
-server.listen(4000, () => {
-  console.log("listening on 4000");
+server.listen(args.port, () => {
+  console.log(`listening on ${args.port}`);
 });

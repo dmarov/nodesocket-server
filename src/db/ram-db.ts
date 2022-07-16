@@ -35,6 +35,10 @@ export class RamDb {
   }
 
   get<T> (key: string): T {
+    if (!this.hasEntry(key)) {
+      throw new NoEntryExistError();
+    }
+
     return this.entries[key] as T;
   }
 

@@ -15,3 +15,4 @@ rules:
   comma-dangle: ["error", "only-multiline"]
   no-unused-vars: "off"
   "@typescript-eslint/no-unused-vars": "error"
+  no-useless-constructor: "off"

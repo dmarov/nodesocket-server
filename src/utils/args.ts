@@ -8,6 +8,10 @@ export const args = yargs
     describe: "domains from which requests are allowed",
     type: "string",
   })
+  .option("port", {
+    describe: "server port to listen for connections",
+    type: "number",
+  })
   .config("config", "yaml configuration file", (filePath) => {
     const content = fs.readFileSync(path.resolve(filePath), "utf-8");
     return yaml.parse(content);
