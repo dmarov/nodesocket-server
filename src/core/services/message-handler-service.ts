@@ -5,6 +5,8 @@ import { Response } from "../../models/core/response";
 import { ServerMessageTypes } from "../../models/core/server-message-types";
 import { MessagePersistenceService } from "./message-persistence-service";
 import { MessageValidationService } from "./message-validation-service";
+import { Result } from "../../models/core/result";
+import Joi from "joi";
 
 @injectable()
 export class MessageHandlerService {
@@ -14,32 +16,18 @@ export class MessageHandlerService {
   @inject(TYPES.MessageValidationService)
   private readonly messageValidationService: MessageValidationService;
 
-  addMessage(payload: string): Response {
+  addMessage(payload: string): Result<Message, Joi.ValidationError | Error> {
     const result = this.messageValidationService.validateMessage(payload);
 
-    return result.unwrap<Response>((message) => {
-      return this.addValidatedMessage(message);
+    return result.unwrap<Result<Message, Joi.ValidationError | Error>>((message) => {
+      return this.messagePersistenceService.addMessage(message)
+        .unwrap((success) => {
+          return Result.success<Message, Joi.ValidationError | Error>(success);
+        }, (error) => {
+          return Result.error<Message, Joi.ValidationError | Error>(error);
+        });
     }, (error) => {
-      return {
-        type: ServerMessageTypes.AddMessageError,
-        payload: JSON.stringify(error),
-      };
-    });
-  }
-
-  private addValidatedMessage(message: Message): Response {
-    const result = this.messagePersistenceService.addMessage(message);
-
-    return result.unwrap<Response>((success) => {
-      return {
-        type: ServerMessageTypes.AddMessageSuccess,
-        payload: JSON.stringify(success),
-      };
-    }, (error) => {
-      return {
-        type: ServerMessageTypes.AddMessageError,
-        payload: JSON.stringify(error),
-      };
+      return Result.error<Message, Joi.ValidationError | Error>(error);
     });
   }
 }

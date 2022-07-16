@@ -45,7 +45,7 @@ export class RamDb implements PlainDb {
     return this.entries[key] as T;
   }
 
-  private hasEntry(key: string) {
+  private hasEntry(key: string): boolean {
     return Object.keys(this.entries).includes(key);
   }
 }
