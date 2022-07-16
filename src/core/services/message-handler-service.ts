@@ -14,18 +14,18 @@ export class MessageHandlerService {
   @inject(TYPES.MessageValidationService)
   private readonly messageValidationService: MessageValidationService;
 
-  addMessage(payload: string): Result<Message, Joi.ValidationError | Error> {
+  addMessage(payload: string): Result<Message[], Joi.ValidationError | Error> {
     const result = this.messageValidationService.validateMessage(payload);
 
-    return result.unwrap<Result<Message, Joi.ValidationError | Error>>((message) => {
+    return result.unwrap<Result<Message[], Joi.ValidationError | Error>>((message) => {
       return this.messagePersistenceService.addMessage(message)
         .unwrap((success) => {
-          return Result.success<Message, Joi.ValidationError | Error>(success);
+          return Result.success<Message[], Joi.ValidationError | Error>(success);
         }, (error) => {
-          return Result.error<Message, Joi.ValidationError | Error>(error);
+          return Result.error<Message[], Joi.ValidationError | Error>(error);
         });
     }, (error) => {
-      return Result.error<Message, Joi.ValidationError | Error>(error);
+      return Result.error<Message[], Joi.ValidationError | Error>(error);
     });
   }
 }
