@@ -2,9 +2,9 @@ import { inject, injectable } from "inversify";
 import { PlainDb } from "../plain-db/plain-db";
 import { Message } from "../shared-models/message";
 import { TYPES } from "../../di/types";
-import { Result } from "../../models/core/result";
 import { IdentifiableError } from "../errors/identifiable-error";
 import { DbMessage } from "../entities/db-message";
+import { Result } from "../contracts/result";
 
 @injectable()
 export class MessagePersistenceService {
@@ -15,9 +15,8 @@ export class MessagePersistenceService {
 
   addMessage(message: Message): Result<DbMessage, IdentifiableError> {
     return this.plainDb.get<DbMessage[]>(this.dbKey)
-      .unwrap(messages => {
-
-        const maxId = messages.reduce((prev, cur) => Math.max(prev, cur.id), -1)
+      .unwrap((messages) => {
+        const maxId = messages.reduce((prev: number, cur: DbMessage) => Math.max(prev, cur.id), -1);
 
         const newMessage: DbMessage = {
           id: maxId + 1,
@@ -26,7 +25,7 @@ export class MessagePersistenceService {
 
         messages.push(newMessage);
 
-        return this.updateMesages(messages).unwrap((success) => {
+        return this.updateMesages(messages).unwrap(() => {
           return Result<DbMessage, IdentifiableError>.success(newMessage);
         }, (error) => {
           return Result<DbMessage, IdentifiableError>.error(error);

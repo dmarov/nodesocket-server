@@ -1,4 +1,4 @@
-import { Result } from "../../models/core/result";
+import { Result } from "../contracts/result";
 import { IdentifiableError } from "../errors/identifiable-error";
 
 export interface PlainDb {

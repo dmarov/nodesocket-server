@@ -3,9 +3,9 @@ import { Socket } from "socket.io";
 import { TYPES } from "../../../di/types";
 import { SocketHandler } from "../socket-handler";
 import { MessageHandlerService } from "../../services/message-handler-service";
-import { ClientMessageTypes } from "../../../models/core/client-message-types";
-import { ServerMessageTypes } from "../../../models/core/server-message-types";
-import { Response } from "../../../models/core/response";
+import { Response } from "../../contracts/response";
+import { ServerMessageTypes } from "../../contracts/server-message-types";
+import { ClientMessageTypes } from "../../contracts/client-message-types";
 
 @injectable()
 export class MessageSocketHandler implements SocketHandler {

@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
-import { Result } from "../../../models/core/result";
 import { IdentifiableError } from "../../errors/identifiable-error";
 import { EntryExistError } from "../../../core/errors/entry-exist";
 import { NoEntryExistError } from "../../../core/errors/no-entry-exist";
 import { PlainDb } from "../plain-db";
+import { Result } from "../../contracts/result";
 
 @injectable()
 export class RamDb implements PlainDb {
