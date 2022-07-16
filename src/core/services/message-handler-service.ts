@@ -1,35 +1,33 @@
-import Joi from "joi";
 import { inject, injectable } from "inversify";
 import { Message } from "../shared-models/message";
 import { TYPES } from "../../di/types";
 import { Response } from "../../models/core/response";
 import { ServerMessageTypes } from "../../models/core/server-message-types";
 import { MessagePersistenceService } from "./message-persistence-service";
+import { MessageValidationService } from "./message-validation-service";
 
 @injectable()
 export class MessageHandlerService {
-  private messageSchema = Joi.object({
-    text: Joi.string()
-      .min(3)
-      .max(200)
-      .required()
-  });
-
   @inject(TYPES.MessagePersistenceService)
   private readonly messagePersistenceService: MessagePersistenceService;
 
-  addMessage(payload: string): Response {
-    const obj: unknown = JSON.parse(payload);
-    const error = this.messageSchema.validate(obj).error;
+  @inject(TYPES.MessageValidationService)
+  private readonly messageValidationService: MessageValidationService;
 
-    if (error) {
+  addMessage(payload: string): Response {
+    const result = this.messageValidationService.validateMessage(payload);
+
+    return result.unwrap<Response>((message) => {
+      return this.processMessage(message);
+    }, (error) => {
       return {
         type: ServerMessageTypes.AddMessageError,
         payload: JSON.stringify(error),
       };
-    }
+    });
+  }
 
-    const message = obj as Message;
+  private processMessage(message: Message): Response {
     const result = this.messagePersistenceService.addMessage(message);
 
     return result.unwrap<Response>((success) => {
