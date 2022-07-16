@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "dev": "ts-node-dev src/server.ts",
+    "build": "npm run lint && tsc",
+    "dev": "npm run lint && ts-node-dev src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx eslint . --ext .ts",
     "lint:fix": "npx eslint . --ext .ts --fix"
