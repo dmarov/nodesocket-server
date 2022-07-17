@@ -4,8 +4,8 @@ import { TYPES } from "../../../di/types";
 import { SocketHandler } from "../socket-handler";
 import { Response } from "../../../models/api/response";
 import { ServerMessageTypes } from "../../../models/api/server-message-types";
+import { MessageHandlerService } from "../../../services/message-handler/impl/message-handler";
 import { ClientMessageTypes } from "../../../models/api/client-message-types";
-import { MessageHandlerService } from "../../../services/message-handler-service";
 
 @injectable()
 export class MessageSocketHandler implements SocketHandler {

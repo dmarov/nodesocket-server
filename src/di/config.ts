@@ -2,9 +2,12 @@ import { Container } from "inversify";
 import { MessageSocketHandler } from "../core/socket-handler/impl/message-socket-handler";
 import { SocketHandler } from "../core/socket-handler/socket-handler";
 import { MessageSocketServer } from "../message-socket-server";
-import { MessageHandlerService } from "../services/message-handler-service";
-import { MessagePersistenceService } from "../services/message-persistence-service";
-import { MessageValidationService } from "../services/message-validation-service";
+import { MessageHandlerService } from "../services/message-handler/impl/message-handler";
+import { MessageHandler } from "../services/message-handler/message-handler";
+import { MessagePersistenceService } from "../services/message-persistence/impl/message-persistence";
+import { MessagePersistence } from "../services/message-persistence/message-persistence";
+import { MessageValidationService } from "../services/message-validation/impl/message-validation";
+import { MessageValidation } from "../services/message-validation/message-validation";
 import { RamDb } from "../services/plain-db/impl/ram-db";
 import { PlainDb } from "../services/plain-db/plain-db";
 import { SocketServer } from "../socket-server";
@@ -22,13 +25,13 @@ container.bind<PlainDb>(TYPES.PlainDb)
   .to(RamDb)
   .inSingletonScope();
 
-container.bind<MessageHandlerService>(TYPES.MessageHandlerService)
+container.bind<MessageHandler>(TYPES.MessageHandlerService)
   .to(MessageHandlerService);
 
-container.bind<MessagePersistenceService>(TYPES.MessagePersistenceService)
+container.bind<MessagePersistence>(TYPES.MessagePersistenceService)
   .to(MessagePersistenceService);
 
-container.bind<MessageValidationService>(TYPES.MessageValidationService)
+container.bind<MessageValidation>(TYPES.MessageValidationService)
   .to(MessageValidationService);
 
 export { container };

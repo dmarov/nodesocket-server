@@ -1,11 +1,12 @@
 import Joi from "joi";
 import { injectable } from "inversify";
-import { Result } from "../models/contracts/result";
-import { Message } from "../models/api/message";
-import { ValidationError } from "../errors/validation";
+import { Result } from "../../../models/contracts/result";
+import { Message } from "../../../models/api/message";
+import { ValidationError } from "../../../errors/validation";
+import { MessageValidation } from "../message-validation";
 
 @injectable()
-export class MessageValidationService {
+export class MessageValidationService implements MessageValidation {
   private messageSchema = Joi.object({
     text: Joi.string()
       .min(3)
