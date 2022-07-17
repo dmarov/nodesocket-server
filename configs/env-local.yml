@@ -1,3 +1,4 @@
 ---
-allowedClients: "http://localhost:4200"
+allowedClients:
+  - "http://localhost:4200"
 port: 4000
