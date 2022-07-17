@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  socket-server:
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - ../:/server
+    environment:
+      NODE_ENV: development
+      CONFIG_PATH: configs/env-local.yml

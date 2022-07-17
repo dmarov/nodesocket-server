@@ -33,3 +33,18 @@
 
 `configs/` - contains configuration files
 
+# Containers
+
+## Development
+
+`cd docker`
+
+`docker-compose build --no-cache` - to build container
+
+`docker-compose run -p 4000:4000 socket-server /bin/bash` - to start development
+
+then
+
+`npm install` - to install packages
+
+`npm run dev` - to start development server
