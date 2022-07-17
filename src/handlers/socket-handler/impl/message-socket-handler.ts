@@ -28,9 +28,8 @@ export class MessageSocketHandler implements SocketHandler {
 
     this.socket.emit(response.type, response.payload);
 
-    this.messageHandler.getMessages().mapSuccess<null>((messages) => {
+    this.messageHandler.getMessages().mapSuccess((messages) => {
       this.socket.broadcast.emit(ServerMessageTypes.UpdateAllMessages, JSON.stringify(messages));
-      return null;
     });
   };
 
@@ -42,7 +41,6 @@ export class MessageSocketHandler implements SocketHandler {
 
     this.messageHandler.getMessages().mapSuccess((messages) => {
       this.socket.emit(ServerMessageTypes.UpdateAllMessages, JSON.stringify(messages));
-      return null;
     });
 
     socket.on(ClientMessageTypes.AddMessage, this.onAddMessage);
