@@ -3,7 +3,7 @@ import { IdentifiableError } from "../../errors/identifiable-error";
 import { EntryExistError } from "../../../core/errors/entry-exist";
 import { NoEntryExistError } from "../../../core/errors/no-entry-exist";
 import { PlainDb } from "../plain-db";
-import { Result } from "../../contracts/result";
+import { Result } from "../../../models/contracts/result";
 
 @injectable()
 export class RamDb implements PlainDb {

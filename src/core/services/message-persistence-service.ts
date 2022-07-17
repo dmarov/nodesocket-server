@@ -3,8 +3,8 @@ import { PlainDb } from "../plain-db/plain-db";
 import { Message } from "../shared-models/message";
 import { TYPES } from "../../di/types";
 import { IdentifiableError } from "../errors/identifiable-error";
-import { DbMessage } from "../entities/db-message";
-import { Result } from "../contracts/result";
+import { Result } from "../../models/contracts/result";
+import { DbMessage } from "../../models/entities/db-message";
 
 @injectable()
 export class MessagePersistenceService {

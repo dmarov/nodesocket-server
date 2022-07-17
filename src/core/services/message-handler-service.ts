@@ -3,9 +3,9 @@ import { TYPES } from "../../di/types";
 import { MessagePersistenceService } from "./message-persistence-service";
 import { MessageValidationService } from "./message-validation-service";
 import { IdentifiableError } from "../errors/identifiable-error";
-import { DbMessage } from "../entities/db-message";
 import { Message } from "../shared-models/message";
-import { Result } from "../contracts/result";
+import { Result } from "../../models/contracts/result";
+import { DbMessage } from "../../models/entities/db-message";
 
 @injectable()
 export class MessageHandlerService {
