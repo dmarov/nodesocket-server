@@ -1,8 +1,11 @@
-export abstract class IdentifiableError extends Error {
-  abstract getId(): number;
+import { ErrorCodes } from "./codes";
 
-  constructor(message?: string) {
+export class IdentifiableError extends Error {
+  readonly id: number;
+
+  constructor(id: ErrorCodes, message?: string) {
     super(message);
+    this.id = id;
     this.name = "generic error with code";
   }
 }

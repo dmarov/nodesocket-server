@@ -6,11 +6,7 @@ export class ValidationError extends IdentifiableError {
   constructor(
     readonly metadata: JoiValidationError,
   ) {
-    super("validation error");
+    super(ErrorCodes.Validation, "validation error");
     this.name = "ValidationError";
-  }
-
-  getId(): number {
-    return ErrorCodes.Validation;
   }
 }
