@@ -1,11 +1,11 @@
 import { inject, injectable } from "inversify";
-import { TYPES } from "../../di/types";
+import { IdentifiableError } from "../core/errors/identifiable-error";
+import { TYPES } from "../di/types";
+import { Message } from "../models/api/message";
+import { Result } from "../models/contracts/result";
+import { DbMessage } from "../models/entities/db-message";
 import { MessagePersistenceService } from "./message-persistence-service";
 import { MessageValidationService } from "./message-validation-service";
-import { IdentifiableError } from "../errors/identifiable-error";
-import { Message } from "../shared-models/message";
-import { Result } from "../../models/contracts/result";
-import { DbMessage } from "../../models/entities/db-message";
 
 @injectable()
 export class MessageHandlerService {

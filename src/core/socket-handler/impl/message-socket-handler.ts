@@ -2,18 +2,14 @@ import { inject, injectable } from "inversify";
 import { Socket } from "socket.io";
 import { TYPES } from "../../../di/types";
 import { SocketHandler } from "../socket-handler";
-import { MessageHandlerService } from "../../services/message-handler-service";
 import { Response } from "../../../models/api/response";
 import { ServerMessageTypes } from "../../../models/api/server-message-types";
 import { ClientMessageTypes } from "../../../models/api/client-message-types";
+import { MessageHandlerService } from "../../../services/message-handler-service";
 
 @injectable()
 export class MessageSocketHandler implements SocketHandler {
   private socket: Socket;
-
-  private readonly onDisconnect = () => {
-    console.log("client disconnected");
-  };
 
   private readonly onAddMessage = (payload: string): void => {
     const result = this.messageHandlerService.addMessage(payload);
@@ -32,9 +28,10 @@ export class MessageSocketHandler implements SocketHandler {
 
     this.socket.emit(response.type, response.payload);
 
-    this.messageHandlerService.getMessages().unwrap((messages) => {
+    this.messageHandlerService.getMessages().mapSuccess<null>((messages) => {
       this.socket.broadcast.emit(ServerMessageTypes.UpdateAllMessages, JSON.stringify(messages));
-    }, () => { });
+      return null;
+    });
   };
 
   @inject(TYPES.MessageHandlerService)
@@ -47,7 +44,6 @@ export class MessageSocketHandler implements SocketHandler {
       this.socket.emit(ServerMessageTypes.UpdateAllMessages, JSON.stringify(messages));
     }, () => { });
 
-    socket.on(ClientMessageTypes.Disconnect, this.onDisconnect);
     socket.on(ClientMessageTypes.AddMessage, this.onAddMessage);
   }
 }

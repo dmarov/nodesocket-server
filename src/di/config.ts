@@ -1,12 +1,12 @@
 import { Container } from "inversify";
 import { RamDb } from "../core/plain-db/impl/ram-db";
 import { PlainDb } from "../core/plain-db/plain-db";
-import { MessageHandlerService } from "../core/services/message-handler-service";
-import { MessagePersistenceService } from "../core/services/message-persistence-service";
-import { MessageValidationService } from "../core/services/message-validation-service";
 import { MessageSocketHandler } from "../core/socket-handler/impl/message-socket-handler";
 import { SocketHandler } from "../core/socket-handler/socket-handler";
 import { MessageSocketServer } from "../message-socket-server";
+import { MessageHandlerService } from "../services/message-handler-service";
+import { MessagePersistenceService } from "../services/message-persistence-service";
+import { MessageValidationService } from "../services/message-validation-service";
 import { SocketServer } from "../socket-server";
 import { TYPES } from "./types";
 
