@@ -3,10 +3,10 @@ import http, { Server as HttpServer } from "http";
 import { args } from "./utils/args";
 import { container } from "./di/config";
 import { TYPES } from "./di/types";
-import { SocketHandler } from "./core/socket-handler/socket-handler";
 import { inject, injectable } from "inversify";
 import { SocketServer } from "./socket-server";
 import { PlainDb } from "./services/plain-db/plain-db";
+import { SocketHandler } from "./handlers/socket-handler/socket-handler";
 
 @injectable()
 export class MessageSocketServer implements SocketServer {

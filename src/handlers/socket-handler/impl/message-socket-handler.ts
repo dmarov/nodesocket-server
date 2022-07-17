@@ -4,7 +4,7 @@ import { TYPES } from "../../../di/types";
 import { SocketHandler } from "../socket-handler";
 import { Response } from "../../../models/api/response";
 import { ServerMessageTypes } from "../../../models/api/server-message-types";
-import { MessageHandlerService } from "../../../services/message-handler/impl/message-handler";
+import { MessageHandler } from "../../../services/message-handler/message-handler";
 import { ClientMessageTypes } from "../../../models/api/client-message-types";
 
 @injectable()
@@ -12,7 +12,7 @@ export class MessageSocketHandler implements SocketHandler {
   private socket: Socket;
 
   private readonly onAddMessage = (payload: string): void => {
-    const result = this.messageHandlerService.addMessage(payload);
+    const result = this.messageHandler.addMessage(payload);
 
     const response = result.unwrap<Response>((success) => {
       return {
@@ -28,19 +28,19 @@ export class MessageSocketHandler implements SocketHandler {
 
     this.socket.emit(response.type, response.payload);
 
-    this.messageHandlerService.getMessages().mapSuccess<null>((messages) => {
+    this.messageHandler.getMessages().mapSuccess<null>((messages) => {
       this.socket.broadcast.emit(ServerMessageTypes.UpdateAllMessages, JSON.stringify(messages));
       return null;
     });
   };
 
-  @inject(TYPES.MessageHandlerService)
-  private readonly messageHandlerService: MessageHandlerService;
+  @inject(TYPES.MessageHandler)
+  private readonly messageHandler: MessageHandler;
 
   start(socket: Socket) {
     this.socket = socket;
 
-    this.messageHandlerService.getMessages().unwrap((messages) => {
+    this.messageHandler.getMessages().unwrap((messages) => {
       this.socket.emit(ServerMessageTypes.UpdateAllMessages, JSON.stringify(messages));
     }, () => { });
 

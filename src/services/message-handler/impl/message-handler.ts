@@ -4,19 +4,19 @@ import { IdentifiableError } from "../../../errors/identifiable-error";
 import { Message } from "../../../models/api/message";
 import { Result } from "../../../models/contracts/result";
 import { DbMessage } from "../../../models/entities/db-message";
-import { MessagePersistenceService } from "../../message-persistence/impl/message-persistence";
-import { MessageValidationService } from "../../message-validation/impl/message-validation";
+import { MessagePersistence } from "../../message-persistence/message-persistence";
+import { MessageValidation } from "../../message-validation/message-validation";
 
 @injectable()
 export class MessageHandlerService {
-  @inject(TYPES.MessagePersistenceService)
-  private readonly messagePersistenceService: MessagePersistenceService;
+  @inject(TYPES.MessagePersistence)
+  private readonly messagePersistence: MessagePersistence;
 
-  @inject(TYPES.MessageValidationService)
-  private readonly messageValidationService: MessageValidationService;
+  @inject(TYPES.MessageValidation)
+  private readonly messageValidation: MessageValidation;
 
   addMessage(payload: string): Result<DbMessage, IdentifiableError> {
-    return this.messageValidationService
+    return this.messageValidation
       .validateMessage(payload)
       .unwrap<Result<DbMessage, IdentifiableError>>((message) => {
         return this.addValidatedMessage(message);
@@ -26,11 +26,11 @@ export class MessageHandlerService {
   }
 
   getMessages(): Result<DbMessage[], IdentifiableError> {
-    return this.messagePersistenceService.getMessages();
+    return this.messagePersistence.getMessages();
   }
 
   private addValidatedMessage(message: Message) {
-    return this.messagePersistenceService.addMessage(message)
+    return this.messagePersistence.addMessage(message)
       .unwrap((success) => {
         return Result.success<DbMessage, IdentifiableError>(success);
       }, (error) => {
