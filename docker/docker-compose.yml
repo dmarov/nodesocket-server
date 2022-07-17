@@ -1,7 +1,9 @@
 version: "3.9"
 services:
   socket-server:
-    build: .
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-develop
     ports:
       - "4000:4000"
     volumes:

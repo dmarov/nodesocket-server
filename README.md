@@ -48,3 +48,5 @@ then
 `npm install` - to install packages
 
 `npm run dev` - to start development server
+
+`docker-compose down --volumes` - to remove container
