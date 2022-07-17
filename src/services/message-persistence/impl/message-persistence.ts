@@ -26,12 +26,12 @@ export class MessagePersistenceService {
         messages.push(newMessage);
 
         return this.updateMesages(messages).unwrap(() => {
-          return Result<DbMessage, IdentifiableError>.success(newMessage);
+          return Result.success(newMessage);
         }, (error) => {
-          return Result<DbMessage, IdentifiableError>.error(error);
+          return Result.error(error);
         });
       }, (error) => {
-        return Result.error<DbMessage, IdentifiableError>(error);
+        return Result.error(error);
       });
   }
 
@@ -42,9 +42,9 @@ export class MessagePersistenceService {
   private updateMesages(messages: DbMessage[]): Result<DbMessage[], IdentifiableError> {
     return this.plainDb.update(this.dbKey, messages)
       .unwrap((success) => {
-        return Result.success<DbMessage[], IdentifiableError>(success);
+        return Result.success(success);
       }, (error) => {
-        return Result.error<DbMessage[], IdentifiableError>(error);
+        return Result.error(error);
       });
   }
 }

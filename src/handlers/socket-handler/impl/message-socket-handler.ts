@@ -40,9 +40,10 @@ export class MessageSocketHandler implements SocketHandler {
   start(socket: Socket) {
     this.socket = socket;
 
-    this.messageHandler.getMessages().unwrap((messages) => {
+    this.messageHandler.getMessages().mapSuccess((messages) => {
       this.socket.emit(ServerMessageTypes.UpdateAllMessages, JSON.stringify(messages));
-    }, () => { });
+      return null;
+    });
 
     socket.on(ClientMessageTypes.AddMessage, this.onAddMessage);
   }

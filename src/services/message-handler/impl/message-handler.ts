@@ -18,7 +18,7 @@ export class MessageHandlerService {
   addMessage(payload: string): Result<DbMessage, IdentifiableError> {
     return this.messageValidation
       .validateMessage(payload)
-      .unwrap<Result<DbMessage, IdentifiableError>>((message) => {
+      .unwrap((message) => {
         return this.addValidatedMessage(message);
       }, (error) => {
         return Result.error<DbMessage, IdentifiableError>(error);
@@ -29,7 +29,7 @@ export class MessageHandlerService {
     return this.messagePersistence.getMessages();
   }
 
-  private addValidatedMessage(message: Message) {
+  private addValidatedMessage(message: Message): Result<DbMessage, IdentifiableError> {
     return this.messagePersistence.addMessage(message)
       .unwrap((success) => {
         return Result.success<DbMessage, IdentifiableError>(success);

@@ -19,9 +19,9 @@ export class MessageValidationService implements MessageValidation {
     const error = this.messageSchema.validate(obj).error;
 
     if (error) {
-      return Result.error<Message, ValidationError>(new ValidationError(error));
+      return Result.error(new ValidationError(error));
     } else {
-      return Result.success<Message, ValidationError>(obj as Message);
+      return Result.success(obj as Message);
     }
   }
 }

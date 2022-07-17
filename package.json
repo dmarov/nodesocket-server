@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run lint && tsc",
-    "start": "node dist/index.js",
+    "start": "node dist/index.js --config='./configs/env-local.yml'",
     "dev": "npm run lint && ts-node-dev src/index.ts --config='./configs/env-local.yml'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx eslint . --ext .ts",
