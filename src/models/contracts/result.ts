@@ -13,11 +13,27 @@ export class Result<S, E> {
     return new Result<S, E>(false, null, payload);
   }
 
-  unwrap<U>(success: (s: S) => U, error: (e: E) => U) {
+  unwrap<T>(onSuccess: (s: S) => T, onError: (e: E) => T) {
     if (this.isSuccess) {
-      return success(this.successPayload!);
+      return onSuccess(this.successPayload!);
     } else {
-      return error(this.errorPayload!);
+      return onError(this.errorPayload!);
     }
+  }
+
+  mapSuccess<T>(onSuccess: (s: S) => T): Result<T, E> {
+    return this.unwrap((success) => {
+      return Result.success(onSuccess(success));
+    }, (error) => {
+      return Result.error(error);
+    });
+  }
+
+  mapError<T>(onError: (e: E) => T): Result<S, T> {
+    return this.unwrap((success) => {
+      return Result.success(success);
+    }, (error) => {
+      return Result.error(onError(error));
+    });
   }
 }
