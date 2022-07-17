@@ -21,6 +21,7 @@ export class MessagePersistenceService {
         const newMessage: DbMessage = {
           id: maxId + 1,
           text: message.text,
+          utcTime: Date.now(),
         };
 
         messages.push(newMessage);
@@ -36,7 +37,10 @@ export class MessagePersistenceService {
   }
 
   getMessages(): Result<DbMessage[], IdentifiableError> {
-    return this.plainDb.get<DbMessage[]>(this.dbKey);
+    return this.plainDb.get<DbMessage[]>(this.dbKey)
+      .mapSuccess((messages) => {
+        return messages.sort((a, b) => a.utcTime - b.utcTime);
+      });
   }
 
   private updateMesages(messages: DbMessage[]): Result<DbMessage[], IdentifiableError> {
