@@ -5,8 +5,8 @@ import { container } from "./di/config";
 import { TYPES } from "./di/types";
 import { SocketHandler } from "./core/socket-handler/socket-handler";
 import { inject, injectable } from "inversify";
-import { PlainDb } from "./core/plain-db/plain-db";
 import { SocketServer } from "./socket-server";
+import { PlainDb } from "./services/plain-db/plain-db";
 
 @injectable()
 export class MessageSocketServer implements SocketServer {
