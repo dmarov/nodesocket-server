@@ -4,7 +4,7 @@ import path from "path";
 import yaml from "yaml";
 
 export const args = yargs
-  .option("cors", {
+  .option("allowed-clients", {
     describe: "domains from which requests are allowed",
     type: "string",
   })
