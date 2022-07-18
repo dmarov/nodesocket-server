@@ -5,7 +5,6 @@ import { ApiMessage } from "../../../models/api/api-message";
 import { RequestMessage } from "../../../models/contracts/request-message";
 import { ResponseMessage } from "../../../models/contracts/response-message";
 import { Result } from "../../../models/contracts/result";
-import { DbMessage } from "../../../models/entities/db-message";
 import { MessagePersistenceInterface } from "../../message-persistence/message-persistence";
 import { MessageValidationInterface } from "../../message-validation/message-validation";
 import { MessageHandlerInterface } from "../message-handler";

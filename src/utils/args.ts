@@ -11,6 +11,12 @@ export const args = yargs
   .option("port", {
     describe: "server port to listen for connections",
     type: "number",
+    default: 4000,
+  })
+  .option("buffer-size", {
+    describe: "number of messages to store on server",
+    type: "number",
+    default: 2000,
   })
   .config("config", "yaml configuration file", (filePath) => {
     const content = fs.readFileSync(path.resolve(filePath), "utf-8");
