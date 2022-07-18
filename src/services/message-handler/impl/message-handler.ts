@@ -30,20 +30,10 @@ export class MessageHandlerService implements MessageHandlerInterface {
 
   getMessages(): Result<ResponseMessage[], IdentifiableError> {
     return this.messagePersistence
-      .getMessages()
-      .unwrap((messages: DbMessage[]) => {
-        return Result.success<ResponseMessage[], IdentifiableError>(messages);
-      }, (error) => {
-        return Result.error<ResponseMessage[], IdentifiableError>(error);
-      });
+      .getMessages();
   }
 
   private addValidatedMessage(message: RequestMessage): Result<ResponseMessage, IdentifiableError> {
-    return this.messagePersistence.addMessage(message)
-      .unwrap((message: DbMessage) => {
-        return Result.success<ResponseMessage, IdentifiableError>(message);
-      }, (error) => {
-        return Result.error<ResponseMessage, IdentifiableError>(error);
-      });
+    return this.messagePersistence.addMessage(message);
   }
 }

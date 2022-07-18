@@ -27,10 +27,8 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
 
         messages.push(newMessage);
 
-        return this.updateMesages(messages).unwrap(() => {
-          return Result.success(newMessage);
-        }, (error) => {
-          return Result.error(error);
+        return this.updateMesages(messages).mapSuccess(() => {
+          return newMessage;
         });
       }, (error) => {
         return Result.error(error);
