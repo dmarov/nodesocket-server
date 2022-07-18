@@ -5,8 +5,8 @@ import { container } from "./di/config";
 import { TYPES } from "./di/types";
 import { inject, injectable } from "inversify";
 import { SocketServer } from "./socket-server";
-import { PlainDb } from "./services/plain-db/plain-db";
 import { SocketHandler } from "./handlers/socket-handler/socket-handler";
+import { MessagePersistenceInterface } from "./services/message-persistence/message-persistence";
 
 @injectable()
 export class MessageSocketServer implements SocketServer {
@@ -18,8 +18,8 @@ export class MessageSocketServer implements SocketServer {
     handler.start(socket);
   };
 
-  @inject(TYPES.PlainDb)
-  private readonly plainDb: PlainDb;
+  @inject(TYPES.MessagePersistenceInterface)
+  private readonly messagePersistence: MessagePersistenceInterface;
 
   constructor() {
     this.server = http.createServer();
@@ -34,10 +34,13 @@ export class MessageSocketServer implements SocketServer {
   }
 
   listen() {
-    this.plainDb.add("messages", []);
-
-    this.server.listen(args.port, "0.0.0.0", () => {
-      console.info(`listening on ${args.port}`);
-    });
+    this.messagePersistence.initMessages()
+      .unwrap(() => {
+        this.server.listen(args.port, "0.0.0.0", () => {
+          console.info(`listening on ${args.port}`);
+        });
+      }, (e) => {
+        throw e;
+      });
   }
 }

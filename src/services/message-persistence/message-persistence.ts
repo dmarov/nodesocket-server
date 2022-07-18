@@ -7,4 +7,5 @@ import { DbMessage } from "../../models/entities/db-message";
 export interface MessagePersistenceInterface {
   addMessage(message: Message): Result<DbMessage, IdentifiableError>;
   getMessages(): Result<DbMessage[], IdentifiableError>;
+  initMessages(): Result<{}, IdentifiableError>;
 }

@@ -44,6 +44,13 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
       });
   }
 
+  initMessages(): Result<{}, IdentifiableError> {
+    return this.plainDb.add("messages", [])
+      .mapSuccess(() => {
+        return { };
+      });
+  }
+
   private updateMesages(messages: DbMessage[]): Result<DbMessage[], IdentifiableError> {
     return this.plainDb.update(this.dbKey, messages)
       .unwrap((success) => {
