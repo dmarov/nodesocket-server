@@ -1,6 +1,6 @@
 # Nodesocket Server
 
-## Example of typescript setup for nodejs server
+## Example of simple chat server made using typescript and websocket
 
 ## Development
 

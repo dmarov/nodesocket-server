@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "../../../di/types";
 import { IdentifiableError } from "../../../errors/identifiable-error";
-import { ApiMessage } from "../../../models/api/api-message";
+import { RequestMessage } from "../../../models/contracts/request-message";
 import { Result } from "../../../models/contracts/result";
 import { DbMessage } from "../../../models/entities/db-message";
 import { PlainDb } from "../../plain-db/plain-db";
@@ -14,7 +14,7 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
   @inject(TYPES.PlainDb)
   private readonly plainDb: PlainDb;
 
-  addMessage(message: ApiMessage): Result<DbMessage, IdentifiableError> {
+  addMessage(message: RequestMessage): Result<DbMessage, IdentifiableError> {
     return this.plainDb.get<DbMessage[]>(this.dbKey)
       .unwrap((messages) => {
         const maxId = messages.reduce((prev: number, cur: DbMessage) => Math.max(prev, cur.id), -1);
@@ -44,11 +44,10 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
       });
   }
 
-  initMessages(): Result<{}, IdentifiableError> {
-    return this.plainDb.add("messages", [])
-      .mapSuccess(() => {
-        return { };
-      });
+  initMessages(): Result<void, IdentifiableError> {
+    return this.plainDb
+      .add("messages", [])
+      .mapSuccess(() => {});
   }
 
   private updateMesages(messages: DbMessage[]): Result<DbMessage[], IdentifiableError> {

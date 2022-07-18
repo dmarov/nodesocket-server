@@ -1,8 +1,8 @@
 import { IdentifiableError } from "../../errors/identifiable-error";
+import { ResponseMessage } from "../../models/contracts/response-message";
 import { Result } from "../../models/contracts/result";
-import { DbMessage } from "../../models/entities/db-message";
 
 export interface MessageHandlerInterface {
-  addMessage(payload: string): Result<DbMessage, IdentifiableError>;
-  getMessages(): Result<DbMessage[], IdentifiableError>;
+  addMessage(payload: string): Result<ResponseMessage, IdentifiableError>;
+  getMessages(): Result<ResponseMessage[], IdentifiableError>;
 }
