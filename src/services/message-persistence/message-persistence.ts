@@ -4,7 +4,7 @@ import { Result } from "../../models/contracts/result";
 import { DbMessage } from "../../models/entities/db-message";
 
 @injectable()
-export interface MessagePersistence {
+export interface MessagePersistenceInterface {
   addMessage(message: Message): Result<DbMessage, IdentifiableError>;
   getMessages(): Result<DbMessage[], IdentifiableError>;
 }

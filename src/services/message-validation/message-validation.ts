@@ -3,6 +3,6 @@ import { Message } from "../../models/api/message";
 import { ValidationError } from "../../errors/validation";
 
 @injectable()
-export interface MessageValidation {
+export interface MessageValidationInterface {
   validateMessage(payload: string): Result<Message, ValidationError>;
 }

@@ -5,9 +5,10 @@ import { Message } from "../../../models/api/message";
 import { Result } from "../../../models/contracts/result";
 import { DbMessage } from "../../../models/entities/db-message";
 import { PlainDb } from "../../plain-db/plain-db";
+import { MessagePersistenceInterface } from "../message-persistence";
 
 @injectable()
-export class MessagePersistenceService {
+export class MessagePersistenceService implements MessagePersistenceInterface {
   private dbKey = "messages";
 
   @inject(TYPES.PlainDb)

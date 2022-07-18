@@ -4,7 +4,7 @@ import { TYPES } from "../../../di/types";
 import { SocketHandler } from "../socket-handler";
 import { Response } from "../../../models/api/response";
 import { ServerMessageTypes } from "../../../models/api/server-message-types";
-import { MessageHandler } from "../../../services/message-handler/message-handler";
+import { MessageHandlerInterface } from "../../../services/message-handler/message-handler";
 import { ClientMessageTypes } from "../../../models/api/client-message-types";
 
 @injectable()
@@ -33,8 +33,8 @@ export class MessageSocketHandler implements SocketHandler {
     });
   };
 
-  @inject(TYPES.MessageHandler)
-  private readonly messageHandler: MessageHandler;
+  @inject(TYPES.MessageHandlerInterface)
+  private readonly messageHandler: MessageHandlerInterface;
 
   start(socket: Socket) {
     this.socket = socket;

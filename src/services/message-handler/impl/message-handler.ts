@@ -4,16 +4,17 @@ import { IdentifiableError } from "../../../errors/identifiable-error";
 import { Message } from "../../../models/api/message";
 import { Result } from "../../../models/contracts/result";
 import { DbMessage } from "../../../models/entities/db-message";
-import { MessagePersistence } from "../../message-persistence/message-persistence";
-import { MessageValidation } from "../../message-validation/message-validation";
+import { MessagePersistenceInterface } from "../../message-persistence/message-persistence";
+import { MessageValidationInterface } from "../../message-validation/message-validation";
+import { MessageHandlerInterface } from "../message-handler";
 
 @injectable()
-export class MessageHandlerService {
-  @inject(TYPES.MessagePersistence)
-  private readonly messagePersistence: MessagePersistence;
+export class MessageHandlerService implements MessageHandlerInterface {
+  @inject(TYPES.MessagePersistenceInterface)
+  private readonly messagePersistence: MessagePersistenceInterface;
 
-  @inject(TYPES.MessageValidation)
-  private readonly messageValidation: MessageValidation;
+  @inject(TYPES.MessageValidationInterface)
+  private readonly messageValidation: MessageValidationInterface;
 
   addMessage(payload: string): Result<DbMessage, IdentifiableError> {
     return this.messageValidation
