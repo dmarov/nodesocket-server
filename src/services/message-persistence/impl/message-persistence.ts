@@ -36,15 +36,6 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
       .mapSuccess(() => {});
   }
 
-  private setMesages(messages: DbMessage[]): Result<DbMessage[], IdentifiableError> {
-    return this.plainDb.update(this.dbKey, messages)
-      .unwrap((success) => {
-        return Result.success(success);
-      }, (error) => {
-        return Result.error(error);
-      });
-  }
-
   private appendMessage(messages: DbMessage[], message: RequestMessage) {
     const maxId = messages.reduce((prev: number, cur: DbMessage) => Math.max(prev, cur.id), -1);
 
@@ -56,8 +47,9 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
 
     messages.push(newMessage);
 
-    return this.setMesages(messages).mapSuccess(() => {
-      return newMessage;
-    });
+    return this.plainDb.update(this.dbKey, messages)
+      .mapSuccess(() => {
+        return newMessage;
+      });
   }
 }
