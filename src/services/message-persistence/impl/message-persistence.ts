@@ -18,8 +18,6 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
     return this.plainDb.get<DbMessage[]>(this.dbKey)
       .unwrap((messages) => {
         return this.appendMessage(messages, message);
-      }, (error) => {
-        return Result.error(error);
       });
   }
 
@@ -32,11 +30,11 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
 
   initMessages(): Result<void, IdentifiableError> {
     return this.plainDb
-      .add("messages", [])
+      .add(this.dbKey, [])
       .mapSuccess(() => {});
   }
 
-  private appendMessage(messages: DbMessage[], message: RequestMessage) {
+  private appendMessage(messages: DbMessage[], message: RequestMessage): Result<DbMessage, IdentifiableError> {
     const maxId = messages.reduce((prev: number, cur: DbMessage) => Math.max(prev, cur.id), -1);
 
     const newMessage: DbMessage = {
