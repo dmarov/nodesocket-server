@@ -5,4 +5,5 @@ export const TYPES = {
   MessageHandlerInterface: Symbol.for("MessageHandlerInterface"),
   MessagePersistenceInterface: Symbol.for("MessagePersistenceInterface"),
   MessageValidationInterface: Symbol.for("MessageValidationInterface"),
+  SettingsInterface: Symbol.for("SettingsInterface"),
 };

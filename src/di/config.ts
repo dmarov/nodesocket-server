@@ -11,6 +11,8 @@ import { MessageValidationService } from "../services/message-validation/impl/me
 import { MessageValidationInterface } from "../services/message-validation/message-validation";
 import { RamDb } from "../services/plain-db/impl/ram-db";
 import { PlainDb } from "../services/plain-db/plain-db";
+import { SettingsService } from "../services/settings/impl/settings";
+import { SettingsInterface } from "../services/settings/settings";
 import { SocketServer } from "../socket-server";
 import { TYPES } from "./types";
 
@@ -23,7 +25,8 @@ container.bind<(socket: Socket) => SocketHandler>(TYPES.SocketHandler)
   .toFactory<SocketHandler>((context: interfaces.Context) => {
     return (socket: Socket) => {
       const handlerService = context.container.get<MessageHandlerInterface>(TYPES.MessageHandlerInterface);
-      return new MessageSocketHandler(socket, handlerService);
+      const settingsService = context.container.get<SettingsInterface>(TYPES.SettingsInterface);
+      return new MessageSocketHandler(socket, handlerService, settingsService);
     };
   });
 
@@ -39,5 +42,8 @@ container.bind<MessagePersistenceInterface>(TYPES.MessagePersistenceInterface)
 
 container.bind<MessageValidationInterface>(TYPES.MessageValidationInterface)
   .to(MessageValidationService);
+
+container.bind<SettingsInterface>(TYPES.SettingsInterface)
+  .to(SettingsService);
 
 export { container };
