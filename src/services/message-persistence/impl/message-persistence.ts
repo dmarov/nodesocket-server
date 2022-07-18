@@ -18,6 +18,8 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
     return this.plainDb.get<DbMessage[]>(this.dbKey)
       .unwrap((messages) => {
         return this.appendMessage(messages, message);
+      }, (error) => {
+        return Result.error(error);
       });
   }
 
