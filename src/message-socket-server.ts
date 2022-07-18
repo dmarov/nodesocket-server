@@ -14,8 +14,8 @@ export class MessageSocketServer implements SocketServer {
   private readonly io: Server;
 
   private readonly onConnection = (socket: Socket) => {
-    const handler = container.get<SocketHandler>(TYPES.SocketHandler);
-    handler.start(socket);
+    const factory = container.get<(socket: Socket) => SocketHandler>(TYPES.SocketHandler);
+    factory(socket);
   };
 
   @inject(TYPES.MessagePersistenceInterface)

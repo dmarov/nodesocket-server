@@ -9,8 +9,6 @@ import { ClientMessageTypes } from "../../../models/api/client-message-types";
 
 @injectable()
 export class MessageSocketHandler implements SocketHandler {
-  private socket: Socket;
-
   private readonly onAddMessage = (payload: string): void => {
     const result = this.messageHandler.addMessage(payload);
 
@@ -33,12 +31,10 @@ export class MessageSocketHandler implements SocketHandler {
     });
   };
 
-  @inject(TYPES.MessageHandlerInterface)
-  private readonly messageHandler: MessageHandlerInterface;
-
-  start(socket: Socket) {
-    this.socket = socket;
-
+  constructor(
+    private readonly socket: Socket,
+    @inject(TYPES.MessageHandlerInterface) private readonly messageHandler: MessageHandlerInterface,
+  ) {
     this.messageHandler.getMessages().mapSuccess((messages) => {
       this.socket.emit(ServerMessageTypes.UpdateAllMessages, JSON.stringify(messages));
     });
