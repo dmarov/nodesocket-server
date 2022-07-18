@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "../../../di/types";
 import { IdentifiableError } from "../../../errors/identifiable-error";
-import { Message } from "../../../models/api/message";
+import { ApiMessage } from "../../../models/api/api-message";
 import { Result } from "../../../models/contracts/result";
 import { DbMessage } from "../../../models/entities/db-message";
 import { MessagePersistenceInterface } from "../../message-persistence/message-persistence";
@@ -30,7 +30,7 @@ export class MessageHandlerService implements MessageHandlerInterface {
     return this.messagePersistence.getMessages();
   }
 
-  private addValidatedMessage(message: Message): Result<DbMessage, IdentifiableError> {
+  private addValidatedMessage(message: ApiMessage): Result<DbMessage, IdentifiableError> {
     return this.messagePersistence.addMessage(message)
       .unwrap((success) => {
         return Result.success<DbMessage, IdentifiableError>(success);

@@ -1,7 +1,7 @@
 import Joi from "joi";
 import { injectable } from "inversify";
 import { Result } from "../../../models/contracts/result";
-import { Message } from "../../../models/api/message";
+import { ApiMessage } from "../../../models/api/api-message";
 import { ValidationError } from "../../../errors/validation";
 import { MessageValidationInterface } from "../message-validation";
 
@@ -14,14 +14,14 @@ export class MessageValidationService implements MessageValidationInterface {
       .required()
   });
 
-  validateMessage(payload: string): Result<Message, ValidationError> {
+  validateMessage(payload: string): Result<ApiMessage, ValidationError> {
     const obj: unknown = JSON.parse(payload);
     const error = this.messageSchema.validate(obj).error;
 
     if (error) {
       return Result.error(new ValidationError(error));
     } else {
-      return Result.success(obj as Message);
+      return Result.success(obj as ApiMessage);
     }
   }
 }
