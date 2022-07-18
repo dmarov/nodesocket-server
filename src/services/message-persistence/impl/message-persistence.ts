@@ -10,10 +10,10 @@ import { MessagePersistenceInterface } from "../message-persistence";
 
 @injectable()
 export class MessagePersistenceService implements MessagePersistenceInterface {
-  private dbKey = "messages";
-
   @inject(TYPES.PlainDb)
   private readonly plainDb: PlainDb;
+
+  private dbKey = "messages";
 
   addMessage(message: RequestMessage): Result<DbMessage, IdentifiableError> {
     return this.plainDb.get<DbMessage[]>(this.dbKey)
