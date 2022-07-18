@@ -26,9 +26,14 @@ export class MessageSocketHandler implements SocketHandler {
 
     this.socket.emit(response.type, response.payload);
 
-    this.messageHandler.getMessages().mapSuccess((messages) => {
-      this.socket.broadcast.emit(ServerMessageTypes.UpdateAllMessages, JSON.stringify(messages));
-    });
+    this.messageHandler
+      .getMessages()
+      .mapSuccess<void>((messages) => {
+        this.socket.broadcast.emit(
+          ServerMessageTypes.UpdateAllMessages,
+          JSON.stringify(messages)
+        );
+      });
   };
 
   constructor(
