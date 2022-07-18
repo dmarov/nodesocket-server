@@ -17,19 +17,7 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
   addMessage(message: RequestMessage): Result<DbMessage, IdentifiableError> {
     return this.plainDb.get<DbMessage[]>(this.dbKey)
       .unwrap((messages) => {
-        const maxId = messages.reduce((prev: number, cur: DbMessage) => Math.max(prev, cur.id), -1);
-
-        const newMessage: DbMessage = {
-          id: maxId + 1,
-          text: message.text,
-          utcTime: Date.now(),
-        };
-
-        messages.push(newMessage);
-
-        return this.updateMesages(messages).mapSuccess(() => {
-          return newMessage;
-        });
+        return this.appendMessage(messages, message);
       }, (error) => {
         return Result.error(error);
       });
@@ -48,12 +36,28 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
       .mapSuccess(() => {});
   }
 
-  private updateMesages(messages: DbMessage[]): Result<DbMessage[], IdentifiableError> {
+  private setMesages(messages: DbMessage[]): Result<DbMessage[], IdentifiableError> {
     return this.plainDb.update(this.dbKey, messages)
       .unwrap((success) => {
         return Result.success(success);
       }, (error) => {
         return Result.error(error);
       });
+  }
+
+  private appendMessage(messages: DbMessage[], message: RequestMessage) {
+    const maxId = messages.reduce((prev: number, cur: DbMessage) => Math.max(prev, cur.id), -1);
+
+    const newMessage: DbMessage = {
+      id: maxId + 1,
+      text: message.text,
+      utcTime: Date.now(),
+    };
+
+    messages.push(newMessage);
+
+    return this.setMesages(messages).mapSuccess(() => {
+      return newMessage;
+    });
   }
 }
