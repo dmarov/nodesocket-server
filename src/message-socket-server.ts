@@ -1,6 +1,6 @@
 import { Server, Socket } from "socket.io";
 import http, { Server as HttpServer } from "http";
-import { args } from "./utils/args";
+import { args } from "@/utils/args";
 import { container } from "./di/config";
 import { TYPES } from "./di/types";
 import { inject, injectable } from "inversify";
