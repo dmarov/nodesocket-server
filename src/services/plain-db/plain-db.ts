@@ -1,5 +1,5 @@
-import { IdentifiableError } from "@/errors/identifiable-error";
-import { Result } from "@/models/contracts/result";
+import { IdentifiableError } from "@/errors";
+import { Result } from "@/models/contracts";
 
 export interface PlainDb {
   add<T>(key: string, value: T): Result<T, IdentifiableError>;

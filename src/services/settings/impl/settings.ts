@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
-import { ApiSettings } from "@/models/api/api-settings";
-import { args } from "@/utils/args";
+import { ApiSettings } from "@/models/api";
+import { args } from "@/utils";
 import { SettingsInterface } from "../settings";
 
 @injectable()

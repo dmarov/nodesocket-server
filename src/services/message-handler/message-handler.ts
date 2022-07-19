@@ -1,6 +1,5 @@
-import { IdentifiableError } from "@/errors/identifiable-error";
-import { ResponseMessage } from "@/models/contracts/response-message";
-import { Result } from "@/models/contracts/result";
+import { IdentifiableError } from "@/errors";
+import { ResponseMessage, Result } from "@/models/contracts";
 
 export interface MessageHandlerInterface {
   addMessage(payload: string): Result<ResponseMessage, IdentifiableError>;

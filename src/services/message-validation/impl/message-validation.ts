@@ -1,8 +1,8 @@
 import Joi from "joi";
 import { injectable } from "inversify";
-import { Result } from "@/models/contracts/result";
-import { ApiMessage } from "@/models/api/api-message";
-import { ValidationError } from "@/errors/validation";
+import { Result } from "@/models/contracts";
+import { ApiMessage } from "@/models/api";
+import { ValidationError } from "@/errors";
 import { MessageValidationInterface } from "../message-validation";
 
 @injectable()

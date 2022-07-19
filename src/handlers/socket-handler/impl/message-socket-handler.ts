@@ -1,13 +1,17 @@
 import { inject, injectable } from "inversify";
 import { Socket } from "socket.io";
-import { TYPES } from "@/di/types";
+import { TYPES } from "@/di";
 import { SocketHandler } from "../socket-handler";
-import { Response } from "@/models/api/response";
-import { ServerMessageTypes } from "@/models/api/server-message-types";
-import { MessageHandlerInterface } from "@/services/message-handler/message-handler";
-import { ClientMessageTypes } from "@/models/api/client-message-types";
-import { SettingsInterface } from "@/services/settings/settings";
-import { ResponseMessage } from "@/models/contracts/response-message";
+import {
+  Response,
+  ServerMessageTypes,
+  ClientMessageTypes
+} from "@/models/api";
+import {
+  MessageHandlerInterface,
+  SettingsInterface
+} from "@/services";
+import { ResponseMessage } from "@/models/contracts";
 
 @injectable()
 export class MessageSocketHandler implements SocketHandler {

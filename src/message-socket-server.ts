@@ -1,12 +1,11 @@
 import { Server, Socket } from "socket.io";
 import http, { Server as HttpServer } from "http";
-import { args } from "@/utils/args";
-import { container } from "@/di/config";
-import { TYPES } from "@/di/types";
 import { inject, injectable } from "inversify";
+import { args } from "@/utils";
+import { container, TYPES } from "@/di";
 import { SocketServer } from "@/socket-server";
-import { SocketHandler } from "@/handlers/socket-handler/socket-handler";
-import { MessagePersistenceInterface } from "@/services/message-persistence/message-persistence";
+import { SocketHandler } from "@/handlers";
+import { MessagePersistenceInterface } from "@/services";
 
 @injectable()
 export class MessageSocketServer implements SocketServer {
