@@ -31,12 +31,12 @@ export class RamDb implements PlainDb {
     return Result.success(this.entries[key] as T);
   }
 
-  delete<T>(key: string, value: T): Result<T, IdentifiableError> {
+  delete<T>(key: string): Result<T, IdentifiableError> {
     if (!this.hasEntry(key)) {
       return Result.error(new NoEntryExistError());
     }
 
-    this.entries[key] = value;
+    delete this.entries[key];
 
     return Result.success(this.entries[key] as T);
   }
