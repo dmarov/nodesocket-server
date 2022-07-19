@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { Socket } from "socket.io";
-import { TYPES } from "@/di";
+import { TYPES } from "@/di/types";
 import { SocketHandler } from "../socket-handler";
 import {
   Response,

@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { TYPES } from "@/di";
+import { TYPES } from "@/di/types";
 import { IdentifiableError } from "@/errors";
 import { Result, RequestMessage } from "@/models/contracts";
 import { DbMessage } from "@/models/entities";
