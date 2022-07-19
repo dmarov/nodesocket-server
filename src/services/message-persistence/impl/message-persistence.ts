@@ -1,11 +1,11 @@
 import { inject, injectable } from "inversify";
-import { TYPES } from "../../../di/types";
-import { IdentifiableError } from "../../../errors/identifiable-error";
-import { RequestMessage } from "../../../models/contracts/request-message";
-import { Result } from "../../../models/contracts/result";
-import { DbMessage } from "../../../models/entities/db-message";
-import { args } from "../../../utils/args";
-import { PlainDb } from "../../plain-db/plain-db";
+import { TYPES } from "@/di/types";
+import { IdentifiableError } from "@/errors/identifiable-error";
+import { RequestMessage } from "@/models/contracts/request-message";
+import { Result } from "@/models/contracts/result";
+import { DbMessage } from "@/models/entities/db-message";
+import { args } from "@/utils/args";
+import { PlainDb } from "@/services/plain-db/plain-db";
 import { MessagePersistenceInterface } from "../message-persistence";
 
 @injectable()

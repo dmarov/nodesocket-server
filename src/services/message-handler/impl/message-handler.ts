@@ -1,12 +1,12 @@
 import { inject, injectable } from "inversify";
-import { TYPES } from "../../../di/types";
-import { IdentifiableError } from "../../../errors/identifiable-error";
-import { ApiMessage } from "../../../models/api/api-message";
-import { RequestMessage } from "../../../models/contracts/request-message";
-import { ResponseMessage } from "../../../models/contracts/response-message";
-import { Result } from "../../../models/contracts/result";
-import { MessagePersistenceInterface } from "../../message-persistence/message-persistence";
-import { MessageValidationInterface } from "../../message-validation/message-validation";
+import { TYPES } from "@/di/types";
+import { IdentifiableError } from "@/errors/identifiable-error";
+import { ApiMessage } from "@/models/api/api-message";
+import { RequestMessage } from "@/models/contracts/request-message";
+import { ResponseMessage } from "@/models/contracts/response-message";
+import { Result } from "@/models/contracts/result";
+import { MessagePersistenceInterface } from "@/services/message-persistence/message-persistence";
+import { MessageValidationInterface } from "@/services/message-validation/message-validation";
 import { MessageHandlerInterface } from "../message-handler";
 
 @injectable()

@@ -35,15 +35,19 @@ container.bind<PlainDb>(TYPES.PlainDb)
   .inSingletonScope();
 
 container.bind<MessageHandlerInterface>(TYPES.MessageHandlerInterface)
-  .to(MessageHandlerService);
+  .to(MessageHandlerService)
+  .inSingletonScope();
 
 container.bind<MessagePersistenceInterface>(TYPES.MessagePersistenceInterface)
-  .to(MessagePersistenceService);
+  .to(MessagePersistenceService)
+  .inSingletonScope();
 
 container.bind<MessageValidationInterface>(TYPES.MessageValidationInterface)
-  .to(MessageValidationService);
+  .to(MessageValidationService)
+  .inSingletonScope();
 
 container.bind<SettingsInterface>(TYPES.SettingsInterface)
-  .to(SettingsService);
+  .to(SettingsService)
+  .inSingletonScope();
 
 export { container };
