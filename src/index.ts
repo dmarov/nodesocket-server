@@ -1,7 +1,5 @@
 import "@/polyfills";
-
-import { container } from "@/di/config";
-import { TYPES } from "@/di/types";
+import { container, TYPES } from "@/di";
 import { SocketServer } from "@/socket-server";
 
 const server = container.get<SocketServer>(TYPES.SocketServer);
