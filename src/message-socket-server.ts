@@ -2,7 +2,7 @@ import { Server, Socket } from "socket.io";
 import http, { Server as HttpServer } from "http";
 import { inject, injectable } from "inversify";
 import { args } from "@/utils";
-import { container } from "@/di/config";
+import { container } from "@/di/container";
 import { TYPES } from "@/di/types";
 import { SocketServer } from "@/socket-server";
 import { SocketHandler } from "@/handlers";

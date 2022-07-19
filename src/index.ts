@@ -1,5 +1,5 @@
 import "@/polyfills";
-import { container } from "@/di/config";
+import { container } from "@/di/container";
 import { TYPES } from "@/di/types";
 import { SocketServer } from "@/socket-server";
 

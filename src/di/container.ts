@@ -34,7 +34,6 @@ container.bind<interfaces.Factory<SocketHandler>>(TYPES.SocketHandler)
   .toFactory<SocketHandler, [Socket]>((context: interfaces.Context) => {
     return (socket: Socket) => {
       const handlerService = context.container.get<MessageHandlerInterface>(TYPES.MessageHandlerInterface);
-      console.log(handlerService);
       const settingsService = context.container.get<SettingsInterface>(TYPES.SettingsInterface);
       return new MessageSocketHandler(socket, handlerService, settingsService);
     };
