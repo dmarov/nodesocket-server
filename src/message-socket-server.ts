@@ -13,8 +13,8 @@ export class MessageSocketServer implements SocketServer {
   private readonly server: HttpServer;
   private readonly io: Server;
 
-  private readonly onConnection = (socket: Socket) => {
-    const factory = container.get<(socket: Socket) => SocketHandler>(TYPES.SocketHandler);
+  private readonly onConnection = (socket: Socket): void => {
+    const factory = container.get<(socket: Socket) => SocketHandler>(TYPES.SocketHandlerFactory);
     factory(socket);
   };
 
@@ -33,7 +33,7 @@ export class MessageSocketServer implements SocketServer {
     this.io.on("connection", this.onConnection);
   }
 
-  listen() {
+  listen(): void {
     this.messagePersistence.initMessages()
       .unwrap(() => {
         this.server.listen(args.port, "0.0.0.0", () => {

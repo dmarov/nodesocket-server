@@ -1,6 +1,6 @@
 export const TYPES = {
   PlainDb: Symbol.for("PlainDb"),
-  SocketHandler: Symbol.for("SocketHandler"),
+  SocketHandlerFactory: Symbol.for("SocketHandlerFactory"),
   SocketServer: Symbol.for("SocketServer"),
   MessageHandlerInterface: Symbol.for("MessageHandlerInterface"),
   MessagePersistenceInterface: Symbol.for("MessagePersistenceInterface"),
