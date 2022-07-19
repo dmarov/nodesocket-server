@@ -18,7 +18,7 @@ export class MessageSocketServer implements SocketServer {
   };
 
   @inject(TYPES.MessagePersistenceInterface)
-  private readonly messagePersistence: MessagePersistenceInterface;
+  private readonly messagePersistence!: MessagePersistenceInterface;
 
   constructor() {
     this.server = http.createServer();

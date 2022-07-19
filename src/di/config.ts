@@ -30,7 +30,7 @@ const container = new Container();
 container.bind<SocketServer>(TYPES.SocketServer)
   .to(MessageSocketServer);
 
-container.bind<(socket: Socket) => SocketHandler>(TYPES.SocketHandler)
+container.bind<interfaces.Factory<SocketHandler>>(TYPES.SocketHandler)
   .toFactory<SocketHandler>((context: interfaces.Context) => {
     return (socket: Socket) => {
       const handlerService = context.container.get<MessageHandlerInterface>(TYPES.MessageHandlerInterface);
