@@ -14,14 +14,13 @@ export class MessageValidationService implements MessageValidationInterface {
       .required()
   });
 
-  validateMessage(payload: string): Result<ApiMessage, ValidationError> {
-    const obj: unknown = JSON.parse(payload);
-    const error = this.messageSchema.validate(obj).error;
+  validateMessage(message: unknown): Result<ApiMessage, ValidationError> {
+    const error = this.messageSchema.validate(message).error;
 
     if (error) {
       return Result.error(new ValidationError(error));
     } else {
-      return Result.success(obj as ApiMessage);
+      return Result.success(message as ApiMessage);
     }
   }
 }

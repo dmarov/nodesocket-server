@@ -17,9 +17,9 @@ export class MessageHandlerService implements MessageHandlerInterface {
   @inject(TYPES.MessageValidationInterface)
   private readonly messageValidation!: MessageValidationInterface;
 
-  addMessage(payload: string): Result<ResponseMessage, IdentifiableError> {
+  addMessage(message: unknown): Result<ResponseMessage, IdentifiableError> {
     return this.messageValidation
-      .validateMessage(payload)
+      .validateMessage(message)
       .unwrap((message: ApiMessage) => {
         return this.addValidatedMessage(message);
       }, (error) => {

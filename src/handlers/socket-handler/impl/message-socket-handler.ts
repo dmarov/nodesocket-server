@@ -21,17 +21,17 @@ export class MessageSocketHandler implements SocketHandler {
     const response = result.unwrap<Response>((message) => {
       this.socket.broadcast.emit(
         ServerMessageTypes.AddMessageSuccess,
-        JSON.stringify(message)
+        message
       );
 
       return {
         type: ServerMessageTypes.AddMessageSuccess,
-        payload: JSON.stringify(message),
+        payload: message,
       };
     }, (error) => {
       return {
         type: ServerMessageTypes.AddMessageError,
-        payload: JSON.stringify(error),
+        payload: error,
       };
     });
 
@@ -57,7 +57,7 @@ export class MessageSocketHandler implements SocketHandler {
       initialMessages,
     };
 
-    this.socket.emit(ServerMessageTypes.SetInitialData, JSON.stringify(payload));
+    this.socket.emit(ServerMessageTypes.SetInitialData, payload);
 
     socket.on(ClientMessageTypes.AddMessage, this.onAddMessage);
   }
