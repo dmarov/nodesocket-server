@@ -6,4 +6,5 @@ export const TYPES = {
   MessagePersistenceInterface: Symbol.for("MessagePersistenceInterface"),
   MessageValidationInterface: Symbol.for("MessageValidationInterface"),
   SettingsInterface: Symbol.for("SettingsInterface"),
+  UserIdentityPersistenceInterface: Symbol.for("UserIdentityPersistenceInterface"),
 };

@@ -1,2 +1,2 @@
-export * from "./message-persistence";
-export * from "./impl/message-persistence";
+export * from "./user-identity-persistence";
+export * from "./impl/user-identity-persistence";

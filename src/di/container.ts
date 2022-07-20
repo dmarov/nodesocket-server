@@ -24,6 +24,7 @@ import {
 } from "@/services/settings";
 import { SocketServer } from "@/socket-server";
 import { TYPES } from "./types";
+import { UserIdentityPersistenceInterface, UserIdentityPersistenceService } from "@/services/user-identity-persistence";
 
 const container = new Container();
 
@@ -57,6 +58,10 @@ container.bind<MessageValidationInterface>(TYPES.MessageValidationInterface)
 
 container.bind<SettingsInterface>(TYPES.SettingsInterface)
   .to(SettingsService)
+  .inSingletonScope();
+
+container.bind<UserIdentityPersistenceInterface>(TYPES.UserIdentityPersistenceInterface)
+  .to(UserIdentityPersistenceService)
   .inSingletonScope();
 
 export { container };
