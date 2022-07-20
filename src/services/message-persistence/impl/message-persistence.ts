@@ -15,7 +15,7 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
   private dbKey = "messages";
 
   addMessage(message: RequestMessage): Result<DbMessage, IdentifiableError> {
-    return this.plainDb.get<DbMessage[]>(this.dbKey)
+    return this.getMessages()
       .unwrap((messages) => {
         return this.appendMessage(messages, message);
       }, (error) => {
@@ -24,10 +24,7 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
   }
 
   getMessages(): Result<DbMessage[], IdentifiableError> {
-    return this.plainDb.get<DbMessage[]>(this.dbKey)
-      .mapSuccess((messages) => {
-        return messages.sort((a, b) => a.utcTime - b.utcTime);
-      });
+    return this.plainDb.get<DbMessage[]>(this.dbKey);
   }
 
   initMessages(): Result<void, IdentifiableError> {
