@@ -6,13 +6,14 @@ import { DbMessage } from "@/models/entities";
 import { args } from "@/utils";
 import { PlainDb } from "@/services";
 import { MessagePersistenceInterface } from "../message-persistence";
+import { DbKeys } from "@/models/entities/db-keys";
 
 @injectable()
 export class MessagePersistenceService implements MessagePersistenceInterface {
   @inject(TYPES.PlainDb)
   private readonly plainDb!: PlainDb;
 
-  private dbKey = "messages";
+  private dbKey = DbKeys.Messages;
 
   addMessage(message: RequestMessage): Result<DbMessage, IdentifiableError> {
     return this.getMessages()
@@ -33,8 +34,13 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
       .mapSuccess(() => {});
   }
 
-  private appendMessage(messages: DbMessage[], message: RequestMessage): Result<DbMessage, IdentifiableError> {
-    const maxId = messages.reduce((prev: number, cur: DbMessage) => Math.max(prev, cur.id), -1);
+  private appendMessage(
+    messages: DbMessage[],
+    message: RequestMessage,
+  ): Result<DbMessage, IdentifiableError> {
+    const maxId = messages.reduce(
+      (prev: number, cur: DbMessage) => Math.max(prev, cur.id), -1
+    );
 
     const newMessage: DbMessage = {
       id: maxId + 1,
