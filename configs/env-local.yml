@@ -3,3 +3,4 @@ allowedClients:
   - "http://localhost:4200"
 port: 4000
 buffer-size: 2000
+users-limit: 100

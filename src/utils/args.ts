@@ -18,6 +18,11 @@ export const args = yargs
     type: "number",
     default: 2000,
   })
+  .option("users-limit", {
+    describe: "maximum number of users on server",
+    type: "number",
+    default: 100,
+  })
   .config("config", "yaml configuration file", (filePath) => {
     const content = fs.readFileSync(path.resolve(filePath), "utf-8");
     return yaml.parse(content);
