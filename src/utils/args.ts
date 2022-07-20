@@ -27,5 +27,6 @@ export const args = yargs
     const content = fs.readFileSync(path.resolve(filePath), "utf-8");
     return yaml.parse(content);
   })
+  .env("SERVER")
   .strict()
   .parseSync();
