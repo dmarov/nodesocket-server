@@ -3,9 +3,10 @@ services:
   socket-server:
     build:
       context: ..
-      dockerfile: docker/Dockerfile-develop
+      args:
+        SERVER_PORT: 80
     ports:
-      - "4000:4000"
+      - "4000:80"
     volumes:
       - ../:/server
     environment:
