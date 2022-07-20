@@ -20,4 +20,4 @@ COPY . .
 RUN npm install &&\
  npm run build
 USER server
-CMD node dist/index.js --config=${CONFIG_PATH}
+CMD node dist/index.js

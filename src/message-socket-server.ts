@@ -26,7 +26,7 @@ export class MessageSocketServer implements SocketServer {
 
     this.io = new Server(this.server, {
       cors: {
-        origin: args.allowedClients as string[],
+        origin: (args.allowedClients as unknown as string).split(", "),
       },
     });
 

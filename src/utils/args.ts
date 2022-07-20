@@ -5,8 +5,8 @@ import yaml from "yaml";
 
 export const args = yargs
   .option("allowed-clients", {
-    describe: "domains from which requests are allowed",
-    type: "array",
+    describe: "domains from which requests are allowed separated by comma",
+    type: "string",
   })
   .option("port", {
     describe: "server port to listen for connections",
