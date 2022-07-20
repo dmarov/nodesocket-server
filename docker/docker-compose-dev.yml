@@ -4,13 +4,11 @@ services:
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
-      args:
-        SERVER_PORT: 80
       target: image-dev
     ports:
       - "4000:80"
     volumes:
       - ../:/server
     environment:
-      NODE_ENV: development
-      CONFIG_PATH: configs/env-local.yml
+      - NODE_ENV=development
+      - CONFIG_PATH=configs/env-local.yml

@@ -4,11 +4,9 @@ services:
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
-      args:
-        SERVER_PORT: 80
       target: image-prod
     ports:
       - "80:80"
     environment:
-      NODE_ENV: production
-      CONFIG_PATH: configs/env-prod.yml
+      - NODE_ENV=production
+      - CONFIG_PATH=configs/env-prod.yml

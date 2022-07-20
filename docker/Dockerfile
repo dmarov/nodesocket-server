@@ -12,11 +12,12 @@ EXPOSE ${SERVER_PORT}
 FROM base AS image-dev
 RUN npm install
 USER server
-CMD ["npm", "run", "dev"]
+CMD npm run dev
 
 FROM base AS image-prod
+ENV CONFIG_PATH configs/env-local.yml
 COPY . .
 RUN npm install &&\
  npm run build
 USER server
-CMD ["node", "dist/index.js", "--config", "./configs/env-prod.yml"]
+CMD node dist/index.js --config=${CONFIG_PATH}
