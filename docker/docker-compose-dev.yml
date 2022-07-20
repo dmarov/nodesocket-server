@@ -3,7 +3,7 @@ services:
   socket-server:
     build:
       context: ..
-      dockerfile: ./docker/Dockerfilze
+      dockerfile: ./docker/Dockerfile
       args:
         SERVER_PORT: 80
       target: image-dev
