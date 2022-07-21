@@ -5,17 +5,17 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: "",
 
 
     // frameworks to use
     // available frameworks: https://www.npmjs.com/search?q=keywords:karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ["jasmine", "karma-typescript"],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'src/**/*.spec.ts'
+      "src/**/*.spec.ts"
     ],
 
 
@@ -27,13 +27,19 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://www.npmjs.com/search?q=keywords:karma-preprocessor
     preprocessors: {
+      "**/*.ts": ["karma-typescript"]
     },
 
-
+    karmaTypescriptConfig: {
+      tsconfig: "./tsconfig.json",
+      coverageOptions: {
+        instrumentation: false,
+      },
+    },
     // test results reporter to use
-    // possible values: 'dots', 'progress'
+    // possible values: "dots", "progress"
     // available reporters: https://www.npmjs.com/search?q=keywords:karma-reporter
-    reporters: ['progress'],
+    reporters: ["progress", "karma-typescript"],
 
 
     // web server port
@@ -55,12 +61,12 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://www.npmjs.com/search?q=keywords:karma-launcher
-    browsers: ['Chrome'],
+    browsers: ["Chrome"],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser instances should be started simultaneously
