@@ -32,17 +32,14 @@ module.exports = function(config) {
 
     karmaTypescriptConfig: {
       tsconfig: "./tsconfig.json",
-      coverageOptions: {
-        instrumentation: false,
-      },
       bundlerOptions: {
         transforms: [require("karma-typescript-es6-transform")()],
-      },
+      }
     },
     // test results reporter to use
     // possible values: "dots", "progress"
     // available reporters: https://www.npmjs.com/search?q=keywords:karma-reporter
-    reporters: ["progress", "karma-typescript"],
+    reporters: ["progress"],
 
 
     // web server port
