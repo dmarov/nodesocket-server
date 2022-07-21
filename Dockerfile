@@ -10,9 +10,8 @@ RUN useradd -ms /bin/bash server &&\
 EXPOSE ${SERVER_PORT}
 
 FROM base AS image-local
-RUN npm install
 USER server
-CMD npm run dev
+CMD npm install && npm run dev
 
 FROM base AS image-prod
 COPY . .

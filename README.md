@@ -37,16 +37,10 @@
 
 ## Development
 
-`cd docker`
+`docker-compose up [-d]` - to build and run development container
 
-`docker-compose build --no-cache` - to build container
+`docker-compose down --volumes` - to stop container and clear volumes
 
-`docker-compose run -p 4000:4000 socket-server /bin/bash` - to start development
+## Production
 
-then
-
-`npm install` - to install packages
-
-`npm run dev` - to start development server
-
-`docker-compose down --volumes` - to remove container
+`docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d ` - to run detached production container
