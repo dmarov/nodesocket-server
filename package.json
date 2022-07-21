@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run lint && tsc && tsc-alias -p tsconfig.json",
-    "start": "node dist/index.js",
-    "dev": "npm run lint && ts-node-dev -r tsconfig-paths/register src/index.ts",
+    "start": "dotenv -c local -- node dist/index.js",
+    "dev": "npm run lint && dotenv -c local -- ts-node-dev -r tsconfig-paths/register src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx eslint . --ext .ts",
     "lint:fix": "npx eslint . --ext .ts --fix"
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
+    "dotenv-cli": "^6.0.0",
     "eslint": "^8.19.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
@@ -29,7 +30,6 @@
   "dependencies": {
     "@types/uuid": "^8.3.4",
     "@types/yargs": "^17.0.10",
-    "dotenv": "^16.0.1",
     "inversify": "^6.0.1",
     "joi": "^17.6.0",
     "reflect-metadata": "^0.1.13",

@@ -1,4 +1,3 @@
-import "@/dotenv";
 import "@/polyfills";
 import { container } from "@/di/container";
 import { TYPES } from "@/di/types";

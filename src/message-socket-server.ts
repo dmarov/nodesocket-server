@@ -23,10 +23,12 @@ export class MessageSocketServer implements SocketServer {
 
   constructor() {
     this.server = http.createServer();
-
+    const origin = (args.allowedClients as unknown as string)
+      .split(" ")
+      .filter(o => !!o);
     this.io = new Server(this.server, {
       cors: {
-        origin: (args.allowedClients as unknown as string).split(", "),
+        origin
       },
     });
 

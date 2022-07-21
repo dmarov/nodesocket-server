@@ -9,13 +9,12 @@ RUN useradd -ms /bin/bash server &&\
  yum install -y nodejs
 EXPOSE ${SERVER_PORT}
 
-FROM base AS image-dev
+FROM base AS image-local
 RUN npm install
 USER server
 CMD npm run dev
 
 FROM base AS image-prod
-ENV CONFIG_PATH configs/env-local.yml
 COPY . .
 RUN npm install &&\
  npm run build
