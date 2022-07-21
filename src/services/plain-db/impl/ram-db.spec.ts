@@ -1,19 +1,14 @@
-// import { RamDb } from "./ram-db";
+import { RamDb } from "./ram-db.ts";
 
 describe('RamDb tests', () => {
   it('checks if entry is added to db', () => {
-    // const db = new RamDb();
-    // const key = 'test-key';
-    // db.add(key, "value");
-    // const result = db.add(key, "value");
+    const db = new RamDb();
+    const key = 'test-key';
+    db.add(key, "value");
+    const result = db.add<string>(key, "value");
 
-    expect(2).toEqual(2);
-    // const value = result.unwrap(
-    //   value => value,
-    //   () => {
-    //     throw new Error();
-    //   },
-    // );
+    const isSuccess = result.unwrap(() => true,() => false);
 
+    expect(isSuccess).toBeTrue();
   })
 });

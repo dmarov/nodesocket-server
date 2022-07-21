@@ -29,6 +29,7 @@
     "karma-chrome-launcher": "^3.1.1",
     "karma-jasmine": "^5.1.0",
     "karma-typescript": "^5.5.3",
+    "karma-typescript-es6-transform": "^5.5.3",
     "ts-node-dev": "^2.0.0",
     "tsc-alias": "^1.7.0",
     "tsconfig-paths": "^4.0.0",
