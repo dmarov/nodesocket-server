@@ -1,6 +1,5 @@
 import { ErrorCodes } from "@/errors";
 import { RequestMessage } from "@/models/contracts";
-import { DbMessage } from "@/models/entities";
 import { RamDb } from "@/services/plain-db";
 import { MessagePersistenceService } from "./message-persistence";
 

@@ -11,10 +11,12 @@ import { args } from "@/utils";
 
 @injectable()
 export class UserIdentityPersistenceService implements UserIdentityPersistenceInterface {
-  @inject(TYPES.PlainDb)
-  private readonly plainDb!: PlainDb;
 
-  private dbKey = DbKeys.UserIdentities;
+  private readonly dbKey = DbKeys.UserIdentities;
+
+  constructor(
+    @inject(TYPES.PlainDb) private readonly plainDb: PlainDb,
+  ) { }
 
   initIdentities(): Result<void, IdentifiableError> {
     return this.plainDb.add(this.dbKey, [])

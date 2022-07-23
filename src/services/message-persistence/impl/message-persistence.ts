@@ -11,11 +11,11 @@ import { DbKeys } from "@/models/entities/db-keys";
 @injectable()
 export class MessagePersistenceService implements MessagePersistenceInterface {
 
+  private readonly dbKey = DbKeys.Messages;
+
   constructor(
     @inject(TYPES.PlainDb) private readonly plainDb: PlainDb,
   ) { }
-
-  private dbKey = DbKeys.Messages;
 
   addMessage(message: RequestMessage): Result<DbMessage, IdentifiableError> {
     return this.getMessages()
