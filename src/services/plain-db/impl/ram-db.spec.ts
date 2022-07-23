@@ -78,3 +78,29 @@ test("checks if delete error dispatched correctly", () => {
   const isSuccess = result.unwrap(() => false, (e) => e.id === ErrorCodes.NoEntryExist);
   expect(isSuccess).toBe(true);
 });
+
+test("checks if entry get works", () => {
+  const db = new RamDb();
+  const key = "test-key";
+  db.add(key, "value");
+  const result = db.get(key);
+  const isSuccess = result.unwrap(() => true, () => false);
+  expect(isSuccess).toBe(true);
+});
+
+test("checks if get method returns correct data", () => {
+  const db = new RamDb();
+  const key = "test-key";
+  db.add(key, "value");
+  const result = db.get(key);
+  const isSuccess = result.unwrap((value) => value, () => null);
+  expect(isSuccess).toBe("value");
+});
+
+test("checks if delete error dispatched correctly", () => {
+  const db = new RamDb();
+  const key = "test-key";
+  const result = db.get(key);
+  const isSuccess = result.unwrap(() => false, (e) => e.id === ErrorCodes.NoEntryExist);
+  expect(isSuccess).toBe(true);
+});
