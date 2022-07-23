@@ -8,5 +8,5 @@ describe("RamDb tests", () => {
     const isSuccess = result.unwrap(() => true, () => false);
 
     expect(isSuccess).toBeTrue();
-  })
+  });
 });

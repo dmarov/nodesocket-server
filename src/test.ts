@@ -5,6 +5,5 @@ declare const req: {
   };
 };
 
-const context = req.context('./', true, /\.spec\.ts$/);
+const context = req.context("./", true, /\.spec\.ts$/);
 context.keys().map(context);
-
