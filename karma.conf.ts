@@ -72,7 +72,7 @@ module.exports = (config: karma.Config | any) => {
       tsconfig: "./tsconfig.spec.json",
       bundlerOptions: {
         validateSyntax: false,
-        transform: [ require("karma-typescript-es6-transform") ]
+        transforms: [ require("karma-typescript-es6-transform")() ]
       }
     },
   })
