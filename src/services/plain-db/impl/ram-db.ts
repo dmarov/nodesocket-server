@@ -36,9 +36,11 @@ export class RamDb implements PlainDb {
       return Result.error(new NoEntryExistError());
     }
 
+    const value = this.entries[key];
+
     delete this.entries[key];
 
-    return Result.success(this.entries[key] as T);
+    return Result.success(value as T);
   }
 
   get<T>(key: string): Result<T, IdentifiableError> {
