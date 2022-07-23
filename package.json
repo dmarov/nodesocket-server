@@ -8,8 +8,8 @@
     "start": "dotenv -c local -- node dist/index.js",
     "dev": "npm run lint && dotenv -c local -- ts-node-dev -r tsconfig-paths/register src/index.ts",
     "test": "karma start",
-    "lint": "npx eslint . --ext .ts",
-    "lint:fix": "npx eslint . --ext .ts --fix"
+    "lint": "npx eslint -c .eslintrc.app.yml",
+    "lint:fix": "npx eslint --fix -c .eslintrc.app.yml"
   },
   "author": "",
   "license": "ISC",
