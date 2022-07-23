@@ -3,4 +3,4 @@ export enum ErrorCodes {
   NoEntryExist = 1,
   Validation = 2,
   LimitExceeded = 3,
-};
+}

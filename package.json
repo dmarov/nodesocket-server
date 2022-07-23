@@ -8,10 +8,10 @@
     "start": "dotenv -c local -- node dist/index.js",
     "dev": "npm run lint && cross-env TS_NODE_PROJECT='./tsconfig.app.json' dotenv -c local -- ts-node-dev -r tsconfig-paths/register src/index.ts",
     "test": "karma start",
-    "lint": "npx eslint -c .eslintrc.app.yml",
-    "lint:fix": "npx eslint --fix -c .eslintrc.app.yml"
+    "lint": "npx eslint -c .eslintrc.app.yml ./src",
+    "lint:fix": "npx eslint --fix -c .eslintrc.app.yml ./src"
   },
-  "author": "",
+  "author": "Dmitry Marov",
   "license": "ISC",
   "devDependencies": {
     "@types/karma-jasmine": "^4.0.2",

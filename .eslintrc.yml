@@ -27,3 +27,6 @@ rules:
   space-before-function-paren:
     - error
     - never
+  "@typescript-eslint/no-empty-interface": off
+  "@typescript-eslint/no-unsafe-return": off
+  "@typescript-eslint/no-empty-function": off
