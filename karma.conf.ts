@@ -1,7 +1,8 @@
 // Karma configuration
 // Generated on Sat Jul 23 2022 10:53:54 GMT+0300 (Moscow Standard Time)
+import * as karma from 'karma';
 
-module.exports = function(config) {
+module.exports = function(config: karma.Config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -15,7 +16,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      "src/**/*.ts"
+      "src/**/*.spec.ts"
     ],
 
 
@@ -67,13 +68,13 @@ module.exports = function(config) {
     // how many browser instances should be started simultaneously
     concurrency: Infinity,
 
-    karmaTypescriptConfig: {
-      tsconfig: "./tsconfig.spec.json",
-      bundlerOptions: {
-        transforms: [
-          require("karma-typescript-es6-transform")()
-        ]
-      }
-    }
+    // karmaTypescriptConfig: {
+    //   tsconfig: "./tsconfig.spec.json",
+    //   bundlerOptions: {
+    //     transforms: [
+    //       require("karma-typescript-es6-transform")()
+    //     ]
+    //   }
+    // }
   })
 }

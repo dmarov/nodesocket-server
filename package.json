@@ -2,7 +2,7 @@
   "name": "nodesocket-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "build": "npm run lint && tsc -p tsconfig.app.json && tsc-alias",
     "start": "dotenv -c local -- node dist/index.js",
@@ -14,6 +14,7 @@
   "author": "Dmitry Marov",
   "license": "ISC",
   "devDependencies": {
+    "@types/karma": "^6.3.3",
     "@types/karma-jasmine": "^4.0.2",
     "@types/uuid": "^8.3.4",
     "@types/yargs": "^17.0.10",
