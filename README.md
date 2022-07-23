@@ -7,6 +7,8 @@
 - `npm run lint` - to lint code
 - `npm run lint:fix` - to fix lint errors
 - `npm run dev` - to start development server
+- `npm run test` - to run all unit tests
+- `npm run test:watch` - to run tests watcher
 
 ## Production
 
@@ -30,8 +32,6 @@
 `src/services/` - contains services with application business logic
 
 `src/utils/` - contains auxilary static methods
-
-`configs/` - contains configuration files
 
 # Containers
 
