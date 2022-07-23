@@ -1,8 +1,8 @@
 // Karma configuration
-// Generated on Sat Jul 23 2022 10:53:54 GMT+0300 (Moscow Standard Time)
-import * as karma from 'karma';
+// Generated on Sat Jul 23 2022 14:58:08 GMT+0300 (Moscow Standard Time)
+import * as karma from "karma";
 
-module.exports = function(config: karma.Config) {
+module.exports = (config: karma.Config | any) => {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -16,7 +16,7 @@ module.exports = function(config: karma.Config) {
 
     // list of files / patterns to load in the browser
     files: [
-      "src/**/*.spec.ts"
+      "src/**/*.ts"
     ],
 
 
@@ -62,19 +62,18 @@ module.exports = function(config: karma.Config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser instances should be started simultaneously
     concurrency: Infinity,
 
-    // karmaTypescriptConfig: {
-    //   tsconfig: "./tsconfig.spec.json",
-    //   bundlerOptions: {
-    //     transforms: [
-    //       require("karma-typescript-es6-transform")()
-    //     ]
-    //   }
-    // }
+    karmaTypescriptConfig: {
+      tsconfig: "./tsconfig.spec.json",
+      bundlerOptions: {
+        validateSyntax: false,
+        transform: [ require("karma-typescript-es6-transform") ]
+      }
+    },
   })
 }
