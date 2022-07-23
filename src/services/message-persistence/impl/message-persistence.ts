@@ -10,8 +10,10 @@ import { DbKeys } from "@/models/entities/db-keys";
 
 @injectable()
 export class MessagePersistenceService implements MessagePersistenceInterface {
-  @inject(TYPES.PlainDb)
-  private readonly plainDb!: PlainDb;
+
+  constructor(
+    @inject(TYPES.PlainDb) private readonly plainDb: PlainDb,
+  ) { }
 
   private dbKey = DbKeys.Messages;
 

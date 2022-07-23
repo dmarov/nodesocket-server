@@ -6,7 +6,6 @@ test("checks if entry added successfully", () => {
   const key = "test-key";
   const result = db.add(key, "value");
   const isSuccess = result.unwrap(() => true, () => false);
-
   expect(isSuccess).toBe(true);
 });
 
@@ -97,7 +96,7 @@ test("checks if get method returns correct data", () => {
   expect(isSuccess).toBe("value");
 });
 
-test("checks if delete error dispatched correctly", () => {
+test("checks if get error dispatched correctly", () => {
   const db = new RamDb();
   const key = "test-key";
   const result = db.get(key);
