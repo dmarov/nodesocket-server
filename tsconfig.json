@@ -1,3 +1,20 @@
 {
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "lib": ["es6"],
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": true,
+    "strict": true,
+    "paths": {
+      "@/*": [ "./src/*" ]
+    }
+  },
+  "lib": ["es2015"]
 }
 
