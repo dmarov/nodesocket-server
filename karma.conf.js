@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Thu Jul 21 2022 18:29:16 GMT+0300 (Moscow Standard Time)
+// Generated on Sat Jul 23 2022 10:53:54 GMT+0300 (Moscow Standard Time)
 
 module.exports = function(config) {
   config.set({
@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      "src/**/*.spec.ts"
+      "src/**/*.ts"
     ],
 
 
@@ -27,19 +27,14 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://www.npmjs.com/search?q=keywords:karma-preprocessor
     preprocessors: {
-      "**/*.ts": ["karma-typescript"]
+      "**/*.ts": "karma-typescript"
     },
 
-    karmaTypescriptConfig: {
-      tsconfig: "./tsconfig.json",
-      bundlerOptions: {
-        transforms: [require("karma-typescript-es6-transform")()],
-      }
-    },
+
     // test results reporter to use
     // possible values: "dots", "progress"
     // available reporters: https://www.npmjs.com/search?q=keywords:karma-reporter
-    reporters: ["progress"],
+    reporters: ["progress", "karma-typescript"],
 
 
     // web server port
@@ -52,7 +47,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
 
     // enable / disable watching file and executing tests whenever any file changes
@@ -70,6 +65,15 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser instances should be started simultaneously
-    concurrency: Infinity
+    concurrency: Infinity,
+
+    karmaTypescriptConfig: {
+      tsconfig: "./tsconfig.spec.json",
+      bundlerOptions: {
+        transforms: [
+          require("karma-typescript-es6-transform")()
+        ]
+      }
+    }
   })
 }
