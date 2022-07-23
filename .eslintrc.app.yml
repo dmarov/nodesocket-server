@@ -1,4 +1,7 @@
 extends:
   - ./.eslintrc.yml
+parserOptions:
+  project:
+    - ./tsconfig.app.json
 ignorePatterns: 
   - "**/*.spec.ts"

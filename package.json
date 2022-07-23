@@ -14,6 +14,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/uuid": "^8.3.4",
+    "@types/yargs": "^17.0.10",
     "@types/karma-jasmine": "^4.0.2",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
@@ -34,8 +36,6 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@types/uuid": "^8.3.4",
-    "@types/yargs": "^17.0.10",
     "inversify": "^6.0.1",
     "joi": "^17.6.0",
     "reflect-metadata": "^0.1.13",
