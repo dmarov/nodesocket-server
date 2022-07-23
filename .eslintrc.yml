@@ -27,5 +27,3 @@ rules:
   space-before-function-paren:
     - error
     - never
-ignorePatterns: 
-  - "**/*.spec.ts"

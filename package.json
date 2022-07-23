@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run lint && tsc && tsc-alias -p tsconfig.json",
+    "build": "npm run lint && tsc && tsc-alias -p tsconfig.app.json",
     "start": "dotenv -c local -- node dist/index.js",
-    "dev": "npm run lint && dotenv -c local -- ts-node-dev -r tsconfig-paths/register src/index.ts",
+    "dev": "npm run lint && cross-env TS_NODE_PROJECT='./tsconfig.app.json' dotenv -c local -- ts-node-dev -r tsconfig-paths/register src/index.ts",
     "test": "karma start",
     "lint": "npx eslint -c .eslintrc.app.yml",
     "lint:fix": "npx eslint --fix -c .eslintrc.app.yml"
@@ -14,9 +14,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/karma-jasmine": "^4.0.2",
     "@types/uuid": "^8.3.4",
     "@types/yargs": "^17.0.10",
-    "@types/karma-jasmine": "^4.0.2",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
     "dotenv-cli": "^6.0.0",
@@ -36,6 +36,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
     "inversify": "^6.0.1",
     "joi": "^17.6.0",
     "reflect-metadata": "^0.1.13",
