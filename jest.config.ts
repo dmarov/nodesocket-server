@@ -1,4 +1,4 @@
-const { pathsToModuleNameMapper } = require('ts-jest');
+import { pathsToModuleNameMapper } from 'ts-jest';
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 export default {
@@ -18,7 +18,7 @@ export default {
   moduleNameMapper: pathsToModuleNameMapper({
     "@/*": [ "./src/*" ]
   }, {
-    prefix: '<rootDir>/'
+    prefix: '<rootDir>'
   }),
   setupFiles: [
     "<rootDir>/src/polyfills.ts"
