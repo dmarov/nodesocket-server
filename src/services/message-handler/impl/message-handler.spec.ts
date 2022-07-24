@@ -22,3 +22,9 @@ test("message add rejected", () => {
   const result = service.addMessage({text: "text of message123"});
   expect(result.checkSuccess()).toBe(false);
 });
+
+test("messages returned", () => {
+  const service = factory();
+  const result = service.getMessages();
+  expect(result.checkSuccess()).toBe(true);
+});
