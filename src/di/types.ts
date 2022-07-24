@@ -7,6 +7,7 @@ export const TYPES = {
   MessageValidationInterface: Symbol.for("MessageValidationInterface"),
   SettingsInterface: Symbol.for("SettingsInterface"),
   UserIdentityPersistenceInterface: Symbol.for("UserIdentityPersistenceInterface"),
+  UserIdentityValidationInterface: Symbol.for("UserIdentityValidationInterface"),
   UsersLimit: Symbol.for("UsersLimit"),
   MessageMinLength: Symbol.for("MessageMinLength"),
   MessageMaxLength: Symbol.for("MessageMaxLength"),
