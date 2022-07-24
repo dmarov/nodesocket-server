@@ -11,11 +11,11 @@ import {
 
 @injectable()
 export class MessageHandlerService implements MessageHandlerInterface {
-  @inject(TYPES.MessagePersistenceInterface)
-  private readonly messagePersistence!: MessagePersistenceInterface;
 
-  @inject(TYPES.MessageValidationInterface)
-  private readonly messageValidation!: MessageValidationInterface;
+  constructor(
+    @inject(TYPES.MessagePersistenceInterface) private readonly messagePersistence: MessagePersistenceInterface,
+    @inject(TYPES.MessageValidationInterface) private readonly messageValidation: MessageValidationInterface,
+  ) { }
 
   addMessage(message: unknown): Result<ResponseMessage, IdentifiableError> {
     return this.messageValidation

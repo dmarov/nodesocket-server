@@ -8,17 +8,19 @@ import { MessageValidationInterface } from "../message-validation";
 @injectable()
 export class MessageValidationService implements MessageValidationInterface {
 
+  private readonly messageSchema: Joi.ObjectSchema;
+
   constructor(
     private readonly minLength: number,
     private readonly maxLength: number,
-  ) { }
-
-  private messageSchema = Joi.object({
-    text: Joi.string()
-      .min(this.minLength)
-      .max(this.maxLength)
-      .required()
-  });
+  ) {
+    this.messageSchema = Joi.object({
+      text: Joi.string()
+        .min(this.minLength)
+        .max(this.maxLength)
+        .required()
+    });
+  }
 
   validateMessage(message: unknown): Result<ApiMessage, ValidationError> {
     const error = this.messageSchema.validate(message).error;

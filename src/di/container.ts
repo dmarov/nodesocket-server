@@ -45,23 +45,15 @@ container.bind<PlainDb>(TYPES.PlainDb)
   .to(RamDb)
   .inSingletonScope();
 
+container.bind<MessageValidationInterface>(TYPES.MessageValidationInterface)
+  .toConstantValue(new MessageValidationService(args.minMsgLength, args.maxMsgLength));
+
 container.bind<MessageHandlerInterface>(TYPES.MessageHandlerInterface)
   .to(MessageHandlerService)
   .inSingletonScope();
 
 container.bind<MessagePersistenceInterface>(TYPES.MessagePersistenceInterface)
   .to(MessagePersistenceService)
-  .inSingletonScope();
-
-container.bind<interfaces.Factory<MessageValidationInterface>>(TYPES.MessageValidationInterface)
-  .toFactory<MessageValidationInterface, []>(() => {
-    return () => {
-      return new MessageValidationService(args.minMsgLength, args.maxMsgLength);
-    };
-  });
-
-container.bind<MessageValidationInterface>(TYPES.MessageValidationInterface)
-  .to(MessageValidationService)
   .inSingletonScope();
 
 container.bind<SettingsInterface>(TYPES.SettingsInterface)
