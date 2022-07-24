@@ -15,7 +15,7 @@ import { ResponseMessage } from "@/models/contracts";
 
 @injectable()
 export class MessageSocketHandler implements SocketHandler {
-  private readonly onAddMessage = (payload: string): void => {
+  private readonly onAddMessage = (payload: unknown): void => {
     const result = this.messageHandler.addMessage(payload);
 
     const response = result.unwrap<Response>((message) => {
