@@ -1,9 +1,10 @@
 import Joi from "joi";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import { Result } from "@/models/contracts";
 import { ApiMessage } from "@/models/api";
 import { ValidationError } from "@/errors";
 import { MessageValidationInterface } from "../message-validation";
+import { TYPES } from "@/di/types";
 
 @injectable()
 export class MessageValidationService implements MessageValidationInterface {
@@ -11,8 +12,8 @@ export class MessageValidationService implements MessageValidationInterface {
   private readonly messageSchema: Joi.ObjectSchema;
 
   constructor(
-    private readonly minLength: number,
-    private readonly maxLength: number,
+    @inject(TYPES.MessageMinLength) private readonly minLength: number,
+    @inject(TYPES.MessageMaxLength) private readonly maxLength: number,
   ) {
     this.messageSchema = Joi.object({
       text: Joi.string()

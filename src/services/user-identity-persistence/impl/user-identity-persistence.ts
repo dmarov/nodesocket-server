@@ -7,7 +7,6 @@ import { PlainDb } from "@/services";
 import { UserIdentityPersistenceInterface } from "../user-identity-persistence";
 import { v4 as uuidv4 } from "uuid";
 import { DbKeys } from "@/models/entities/db-keys";
-import { args } from "@/utils";
 
 @injectable()
 export class UserIdentityPersistenceService implements UserIdentityPersistenceInterface {
@@ -16,6 +15,7 @@ export class UserIdentityPersistenceService implements UserIdentityPersistenceIn
 
   constructor(
     @inject(TYPES.PlainDb) private readonly plainDb: PlainDb,
+    @inject(TYPES.UsersLimit) private readonly usersLimit: number,
   ) { }
 
   initIdentities(): Result<void, IdentifiableError> {
@@ -26,7 +26,7 @@ export class UserIdentityPersistenceService implements UserIdentityPersistenceIn
   createIdentity(identity: RequestUserIdentity): Result<DbUserIdentity, IdentifiableError> {
     return this.getIdentities()
       .unwrap(identities => {
-        if (identities.length > args.usersLimit) {
+        if (identities.length >= this.usersLimit) {
           return Result.error(new LimitExceededError());
         } else {
           return this.appendIdentity(identities, identity);

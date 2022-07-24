@@ -64,4 +64,13 @@ container.bind<UserIdentityPersistenceInterface>(TYPES.UserIdentityPersistenceIn
   .to(UserIdentityPersistenceService)
   .inSingletonScope();
 
+container.bind<number>(TYPES.UsersLimit)
+  .toConstantValue(args.usersLimit);
+
+container.bind<number>(TYPES.MessageMinLength)
+  .toConstantValue(args.minMsgLength);
+
+container.bind<number>(TYPES.MessageMaxLength)
+  .toConstantValue(args.maxMsgLength);
+
 export { container };
