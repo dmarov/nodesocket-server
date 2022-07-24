@@ -24,7 +24,10 @@ import {
 } from "@/services/settings";
 import { SocketServer } from "@/socket-server";
 import { TYPES } from "./types";
-import { UserIdentityPersistenceInterface, UserIdentityPersistenceService } from "@/services/user-identity-persistence";
+import {
+  UserIdentityPersistenceInterface,
+  UserIdentityPersistenceService,
+} from "@/services/user-identity-persistence";
 import { args } from "@/utils";
 
 const container = new Container();
@@ -72,5 +75,11 @@ container.bind<number>(TYPES.MessageMinLength)
 
 container.bind<number>(TYPES.MessageMaxLength)
   .toConstantValue(args.maxMsgLength);
+
+container.bind<number>(TYPES.ServerPort)
+  .toConstantValue(args.port);
+
+container.bind<string>(TYPES.AllowedOrigins)
+  .toConstantValue(args.allowedClients as string);
 
 export { container };

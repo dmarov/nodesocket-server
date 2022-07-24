@@ -11,4 +11,6 @@ export const TYPES = {
   UsersLimit: Symbol.for("UsersLimit"),
   MessageMinLength: Symbol.for("MessageMinLength"),
   MessageMaxLength: Symbol.for("MessageMaxLength"),
+  ServerPort: Symbol.for("ServerPort"),
+  AllowedOrigins: Symbol.for("AllowedOrigins"),
 };

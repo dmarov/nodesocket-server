@@ -18,13 +18,14 @@ export class MessageSocketServer implements SocketServer {
     factory(socket);
   };
 
-  @inject(TYPES.MessagePersistenceInterface)
-  private readonly messagePersistence!: MessagePersistenceInterface;
-
-  constructor() {
+  constructor(
+    @inject(TYPES.MessagePersistenceInterface) private readonly messagePersistence: MessagePersistenceInterface,
+    @inject(TYPES.ServerPort) private readonly serverPort: number,
+    @inject(TYPES.AllowedOrigins) private readonly origins: string,
+  ) {
     this.server = http.createServer();
 
-    const origin = (args.allowedClients as string)
+    const origin = this.origins
       .split(" ")
       .filter(o => !!o);
 
@@ -40,7 +41,7 @@ export class MessageSocketServer implements SocketServer {
   listen(): void {
     this.messagePersistence.initMessages()
       .unwrap(() => {
-        this.server.listen(args.port, "0.0.0.0", () => {
+        this.server.listen(this.serverPort, "0.0.0.0", () => {
           console.info(`listening on ${args.port}`);
         });
       }, (e) => {
