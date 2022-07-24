@@ -1,7 +1,6 @@
 import { Server, Socket } from "socket.io";
 import http, { Server as HttpServer } from "http";
 import { inject, injectable } from "inversify";
-import { args } from "@/utils";
 import { container } from "@/di/container";
 import { TYPES } from "@/di/types";
 import { SocketServer } from "@/socket-server";
@@ -21,6 +20,7 @@ export class MessageSocketServer implements SocketServer {
   constructor(
     @inject(TYPES.MessagePersistenceInterface) private readonly messagePersistence: MessagePersistenceInterface,
     @inject(TYPES.ServerPort) private readonly serverPort: number,
+    @inject(TYPES.ServerAddress) private readonly serverAddress: string,
     @inject(TYPES.AllowedOrigins) private readonly origins: string,
   ) {
     this.server = http.createServer();
@@ -41,8 +41,8 @@ export class MessageSocketServer implements SocketServer {
   listen(): void {
     this.messagePersistence.initMessages()
       .unwrap(() => {
-        this.server.listen(this.serverPort, "0.0.0.0", () => {
-          console.info(`listening on ${args.port}`);
+        this.server.listen(this.serverPort, this.serverAddress, () => {
+          console.info(`listening on ${this.serverAddress}:${this.serverPort}`);
         });
       }, (e) => {
         throw e;

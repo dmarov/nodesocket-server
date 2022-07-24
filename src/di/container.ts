@@ -82,4 +82,7 @@ container.bind<number>(TYPES.ServerPort)
 container.bind<string>(TYPES.AllowedOrigins)
   .toConstantValue(args.allowedClients as string);
 
+container.bind<string>(TYPES.ServerAddress)
+  .toConstantValue(args.address);
+
 export { container };

@@ -8,6 +8,11 @@ export const args = yargs
     describe: "origins from which requests are allowed separated by space",
     type: "string",
   })
+  .option("address", {
+    describe: "server port to listen for connections",
+    type: "string",
+    default: "0.0.0.0",
+  })
   .option("port", {
     describe: "server port to listen for connections",
     type: "number",
