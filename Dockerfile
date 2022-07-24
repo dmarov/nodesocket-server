@@ -11,7 +11,8 @@ EXPOSE ${SERVER_PORT}
 
 FROM base AS image-local
 USER server
-CMD npm install && npm run dev
+CMD npm install &&\
+ npm run dev
 
 FROM base AS image-prod
 COPY . .
