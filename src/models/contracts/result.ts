@@ -36,4 +36,8 @@ export class Result<S, E> {
       return Result.error(onError(error));
     });
   }
+
+  checkSuccess() {
+    return this.unwrap(() => true, () => false);
+  }
 }

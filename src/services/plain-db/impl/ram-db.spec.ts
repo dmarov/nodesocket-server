@@ -5,8 +5,7 @@ test("checks if entry added successfully", () => {
   const db = new RamDb();
   const key = "test-key";
   const result = db.add(key, "value");
-  const isSuccess = result.unwrap(() => true, () => false);
-  expect(isSuccess).toBe(true);
+  expect(result.checkSuccess()).toBe(true);
 });
 
 test("checks if add method returns correct data", () => {
@@ -57,8 +56,7 @@ test("checks if entry gets deleted", () => {
   const key = "test-key";
   db.add(key, "value");
   const result = db.delete(key);
-  const isSuccess = result.unwrap(() => true, () => false);
-  expect(isSuccess).toBe(true);
+  expect(result.checkSuccess()).toBe(true);
 });
 
 test("checks if delete method returns correct data", () => {
@@ -83,8 +81,7 @@ test("checks if entry get works", () => {
   const key = "test-key";
   db.add(key, "value");
   const result = db.get(key);
-  const isSuccess = result.unwrap(() => true, () => false);
-  expect(isSuccess).toBe(true);
+  expect(result.checkSuccess()).toBe(true);
 });
 
 test("checks if get method returns correct data", () => {

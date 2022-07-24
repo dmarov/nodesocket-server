@@ -1,5 +1,9 @@
 # Nodesocket Server
 
+## Requirements
+
+- nodejs 16.x.x
+
 ## Example of simple chat server made using typescript and websocket
 
 ## Development

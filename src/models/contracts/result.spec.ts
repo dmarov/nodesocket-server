@@ -25,3 +25,13 @@ test("result map error works", () => {
   const s = result.unwrap(() => null, e => e);
   expect(s).toEqual("works");
 });
+
+test("success result check success works", () => {
+  const result = Result.success("success value");
+  expect(result.checkSuccess()).toBe(true);
+});
+
+test("success result check error works", () => {
+  const result = Result.error("error value");
+  expect(result.checkSuccess()).toBe(false);
+});
