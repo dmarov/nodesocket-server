@@ -1,7 +1,12 @@
 import { MessageValidationService } from "./message-validation";
 
+function factory() {
+  return new MessageValidationService(3, 7);
+}
+
 test("message validation undefined rejected", () => {
-  const service = new MessageValidationService(3, 7);
+  const service = factory();
+
   const message: unknown = {
     textOfMessage: "a",
   };
@@ -10,7 +15,8 @@ test("message validation undefined rejected", () => {
 });
 
 test("message validation minimum limit rejected", () => {
-  const service = new MessageValidationService(3, 7);
+  const service = factory();
+
   const message: unknown = {
     text: "a",
   };
@@ -19,7 +25,8 @@ test("message validation minimum limit rejected", () => {
 });
 
 test("message validation minimum limit accepted", () => {
-  const service = new MessageValidationService(3, 7);
+  const service = factory();
+
   const message: unknown = {
     text: "abc",
   };
@@ -28,7 +35,8 @@ test("message validation minimum limit accepted", () => {
 });
 
 test("message validation maximum limit rejected", () => {
-  const service = new MessageValidationService(3, 7);
+  const service = factory();
+
   const message: unknown = {
     text: "abc defg",
   };
@@ -37,7 +45,8 @@ test("message validation maximum limit rejected", () => {
 });
 
 test("message validation maximum limit accepted", () => {
-  const service = new MessageValidationService(3, 7);
+  const service = factory();
+
   const message: unknown = {
     text: "abc deg",
   };

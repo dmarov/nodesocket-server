@@ -9,8 +9,4 @@ export class UserIdentityHandlerService implements UserIdentityHandlerInterface 
   addIdentity(): Result<ResponseUserIdentity, IdentifiableError> {
     throw new Error("Method not implemented.");
   }
-
-  getIdentities(): Result<ResponseUserIdentity[], IdentifiableError> {
-    throw new Error("Method not implemented.");
-  }
 }

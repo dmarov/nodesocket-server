@@ -3,10 +3,15 @@ import { RequestMessage } from "@/models/contracts";
 import { RamDb } from "@/services/plain-db";
 import { MessagePersistenceService } from "./message-persistence";
 
-test("messages initialization works", () => {
+function factory() {
   const db = new RamDb();
   const service = new MessagePersistenceService(db);
   service.initMessages();
+  return service;
+}
+
+test("messages initialization works", () => {
+  const service = factory();
   const result = service.getMessages();
   const isSuccess = result.unwrap(
     (s) => Array.isArray(s) && s.length === 0,
@@ -16,9 +21,7 @@ test("messages initialization works", () => {
 });
 
 test("messages double initialization returns error", () => {
-  const db = new RamDb();
-  const service = new MessagePersistenceService(db);
-  service.initMessages();
+  const service = factory();
   const result = service.initMessages();
   const isSuccess = result.unwrap(
     () => false,
@@ -28,9 +31,7 @@ test("messages double initialization returns error", () => {
 });
 
 test("message add returns correct value", () => {
-  const db = new RamDb();
-  const service = new MessagePersistenceService(db);
-  service.initMessages();
+  const service = factory();
 
   const message: RequestMessage = {
     text: "text of message",
@@ -47,9 +48,7 @@ test("message add returns correct value", () => {
 });
 
 test("message added", () => {
-  const db = new RamDb();
-  const service = new MessagePersistenceService(db);
-  service.initMessages();
+  const service = factory();
 
   const message: RequestMessage = {
     text: "text of message",
