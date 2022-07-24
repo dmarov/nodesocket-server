@@ -7,10 +7,16 @@ import { MessageValidationInterface } from "../message-validation";
 
 @injectable()
 export class MessageValidationService implements MessageValidationInterface {
+
+  constructor(
+    private readonly minLength: number,
+    private readonly maxLength: number,
+  ) { }
+
   private messageSchema = Joi.object({
     text: Joi.string()
-      .min(3)
-      .max(200)
+      .min(this.minLength)
+      .max(this.maxLength)
       .required()
   });
 

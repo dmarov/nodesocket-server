@@ -23,6 +23,16 @@ export const args = yargs
     type: "number",
     default: 100,
   })
+  .option("min-msg-length", {
+    describe: "minimum number of characters in message",
+    type: "number",
+    default: 3,
+  })
+  .option("max-msg-length", {
+    describe: "maximum number of characters in message",
+    type: "number",
+    default: 200,
+  })
   .config("config", "yaml configuration file", (filePath) => {
     const content = fs.readFileSync(path.resolve(filePath), "utf-8");
     return yaml.parse(content);

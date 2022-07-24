@@ -25,6 +25,7 @@ import {
 import { SocketServer } from "@/socket-server";
 import { TYPES } from "./types";
 import { UserIdentityPersistenceInterface, UserIdentityPersistenceService } from "@/services/user-identity-persistence";
+import { args } from "@/utils";
 
 const container = new Container();
 
@@ -51,6 +52,13 @@ container.bind<MessageHandlerInterface>(TYPES.MessageHandlerInterface)
 container.bind<MessagePersistenceInterface>(TYPES.MessagePersistenceInterface)
   .to(MessagePersistenceService)
   .inSingletonScope();
+
+container.bind<interfaces.Factory<MessageValidationInterface>>(TYPES.MessageValidationInterface)
+  .toFactory<MessageValidationInterface, []>(() => {
+    return () => {
+      return new MessageValidationService(args.minMsgLength, args.maxMsgLength);
+    };
+  });
 
 container.bind<MessageValidationInterface>(TYPES.MessageValidationInterface)
   .to(MessageValidationService)
