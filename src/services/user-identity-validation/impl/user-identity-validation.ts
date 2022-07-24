@@ -1,6 +1,6 @@
-import { IdentifiableError } from "@/errors";
+import { IdentifiableError, ValidationError } from "@/errors";
 import { ApiUserIdentity } from "@/models/api";
-import { RequestUserIdentity, Result } from "@/models/contracts";
+import { Result } from "@/models/contracts";
 import { injectable } from "inversify";
 import Joi from "joi";
 import { UserIdentityValidationInterface } from "../user-identity-validation";
@@ -8,13 +8,13 @@ import { UserIdentityValidationInterface } from "../user-identity-validation";
 @injectable()
 export class UserIdentityValidationService implements UserIdentityValidationInterface {
 
-  private readonly usernameValidation: Joi.ObjectSchema;
+  private readonly usernameSchema: Joi.ObjectSchema;
 
   constructor(
     private readonly nameMinLength: number,
     private readonly nameMaxLength: number,
   ) {
-    this.usernameValidation = Joi.object({
+    this.usernameSchema = Joi.object({
       name: Joi.string()
         .min(this.nameMinLength)
         .max(this.nameMaxLength)
@@ -22,6 +22,12 @@ export class UserIdentityValidationService implements UserIdentityValidationInte
   }
 
   validateIdentity(identity: unknown): Result<ApiUserIdentity, IdentifiableError> {
-    throw new Error("Method not implemented.");
+    const error = this.usernameSchema.validate(identity).error;
+
+    if (error) {
+      return Result.error(new ValidationError(error));
+    } else {
+      return Result.success(identity as ApiUserIdentity);
+    }
   }
 }
