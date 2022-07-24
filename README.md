@@ -25,7 +25,9 @@
 
 ## Development
 
-`docker-compose up [-d]` - to build and run development container
+`docker-compose up [-d]` - to build and run development container [detached mode]
+
+`docker-compose run socket-server /bin/bash` - to enter container shell
 
 `docker-compose down --volumes` - to stop container and clear volumes
 
