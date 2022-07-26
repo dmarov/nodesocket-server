@@ -5,3 +5,4 @@ services:
       target: image-prod
     ports:
       - "80:80"
+    volumes: []
