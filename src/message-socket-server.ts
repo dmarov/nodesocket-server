@@ -25,7 +25,7 @@ export class MessageSocketServer implements SocketServer {
   ) {
     this.server = http.createServer();
 
-    const origin = this.origins
+    const origin = (this.origins ?? "")
       .split(" ")
       .filter(o => !!o);
 

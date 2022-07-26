@@ -8,9 +8,11 @@
 
 ## Development
 
+- `cp .env.example .env` - create server config
 - `npm run lint` - to lint code
 - `npm run lint:fix` - to fix lint errors
-- `npm run dev` - to start development server
+- `npm run dev:nodocker` - to start development server in local environment
+- `npm run dev` - to start development server in docker environment
 - `npm run test` - to run all unit tests
 - `npm run test:watch` - to run tests watcher
 
@@ -27,7 +29,7 @@
 
 `docker-compose up [-d]` - to build and run development container [detached mode]
 
-`docker-compose run socket-server /bin/bash` - to enter container shell
+`docker-compose run socket-server bash` - to enter container shell (to install packages and so on)
 
 `docker-compose down --volumes` - to stop container and clear volumes
 
