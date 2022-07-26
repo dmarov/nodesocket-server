@@ -27,9 +27,9 @@
 
 ## Development
 
-`docker-compose up --build` - to rebuild and run development container
+`docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build` - to rebuild and run development container
 
-`docker-compose up -d` - to build and run development container in detached mode
+`docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d` - to build and run development container in detached mode
 
 `docker-compose run socket-server bash` - to enter container shell (to install packages and so on)
 

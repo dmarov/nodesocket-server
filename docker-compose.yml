@@ -4,9 +4,4 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-      target: image-local
-    ports:
-      - "4000:80"
-    volumes:
-      - ./:/server
     env_file: ./.env

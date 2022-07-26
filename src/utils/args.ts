@@ -16,7 +16,7 @@ export const args = yargs
   .option("port", {
     describe: "server port to listen for connections",
     type: "number",
-    default: 4000,
+    default: 80,
   })
   .option("buffer-size", {
     describe: "number of messages to store on server",
