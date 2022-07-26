@@ -8,6 +8,7 @@ export const TYPES = {
   SettingsInterface: Symbol.for("SettingsInterface"),
   UserIdentityPersistenceInterface: Symbol.for("UserIdentityPersistenceInterface"),
   UserIdentityValidationInterface: Symbol.for("UserIdentityValidationInterface"),
+  UserIdentityHandlerInterface: Symbol.for("UserIdentityHandlerInterface"),
   UsersLimit: Symbol.for("UsersLimit"),
   MessageMinLength: Symbol.for("MessageMinLength"),
   MessageMaxLength: Symbol.for("MessageMaxLength"),

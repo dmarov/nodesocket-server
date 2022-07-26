@@ -29,6 +29,7 @@ import {
   UserIdentityPersistenceService,
 } from "@/services/user-identity-persistence";
 import { args } from "@/utils";
+import { UserIdentityHandlerInterface, UserIdentityHandlerService, UserIdentityValidationInterface, UserIdentityValidationService } from "@/services";
 
 const container = new Container();
 
@@ -49,7 +50,8 @@ container.bind<PlainDb>(TYPES.PlainDb)
   .inSingletonScope();
 
 container.bind<MessageValidationInterface>(TYPES.MessageValidationInterface)
-  .toConstantValue(new MessageValidationService(args.minMsgLength, args.maxMsgLength));
+  .to(MessageValidationService)
+  .inSingletonScope();
 
 container.bind<MessageHandlerInterface>(TYPES.MessageHandlerInterface)
   .to(MessageHandlerService)
@@ -67,14 +69,21 @@ container.bind<UserIdentityPersistenceInterface>(TYPES.UserIdentityPersistenceIn
   .to(UserIdentityPersistenceService)
   .inSingletonScope();
 
+container.bind<UserIdentityValidationInterface>(TYPES.UserIdentityValidationInterface)
+  .toConstantValue(new UserIdentityValidationService(3, 20));
+
+container.bind<UserIdentityHandlerInterface>(TYPES.UserIdentityHandlerInterface)
+  .to(UserIdentityHandlerService)
+  .inSingletonScope();
+
 container.bind<number>(TYPES.UsersLimit)
   .toConstantValue(args.usersLimit);
 
 container.bind<number>(TYPES.MessageMinLength)
-  .toConstantValue(args.minMsgLength);
+  .toConstantValue(args.msgMinLength);
 
 container.bind<number>(TYPES.MessageMaxLength)
-  .toConstantValue(args.maxMsgLength);
+  .toConstantValue(args.msgMaxLength);
 
 container.bind<number>(TYPES.ServerPort)
   .toConstantValue(args.port);

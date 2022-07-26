@@ -28,12 +28,12 @@ export const args = yargs
     type: "number",
     default: 100,
   })
-  .option("min-msg-length", {
+  .option("msg-min-length", {
     describe: "minimum number of characters in message",
     type: "number",
     default: 3,
   })
-  .option("max-msg-length", {
+  .option("msg-max-length", {
     describe: "maximum number of characters in message",
     type: "number",
     default: 200,
