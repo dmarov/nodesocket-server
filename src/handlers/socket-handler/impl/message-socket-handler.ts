@@ -11,7 +11,6 @@ import {
   MessageHandlerInterface,
   SettingsInterface
 } from "@/services";
-import { ResponseMessage } from "@/models/contracts";
 
 @injectable()
 export class MessageSocketHandler implements SocketHandler {
@@ -46,11 +45,7 @@ export class MessageSocketHandler implements SocketHandler {
     const settings = this.settingsService.getSettings();
     const initialMessages = this.messageHandler
       .getMessages()
-      .unwrap<ResponseMessage[]>((messages) => {
-        return messages;
-      }, () => {
-        return [];
-      });
+      .unwrapError(() => []);
 
     const payload = {
       settings,

@@ -21,6 +21,10 @@ export class Result<S, E> {
     }
   }
 
+  unwrapError(onError: (e: E) => S) {
+    return this.unwrap(s => s, e => onError(e));
+  }
+
   mapSuccess<T>(onSuccess: (s: S) => T): Result<T, E> {
     return this.unwrap((success) => {
       return Result.success(onSuccess(success));

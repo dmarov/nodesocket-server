@@ -1,18 +1,18 @@
 # Project structure
 
-`src/di/` - contains files for Dependency Injection
+`di/` - contains files for Dependency Injection
 
-`src/errors/` - contains reusable errors
+`errors/` - contains reusable errors
 
-`src/handlers/` - contains handlers for incomming socket connections
+`handlers/` - contains handlers for incomming socket connections
 
-`src/models/api/` - contains models for intercommunication with client
+`models/api/` - contains models for intercommunication with client
 
-`src/models/contracts/` - contains models for intercommunication between services
+`models/contracts/` - contains models for intercommunication between services
 
-`src/models/entities/` - contains models for interaction with database
+`models/entities/` - contains models for interaction with database
 
-`src/services/` - contains services with application business logic
+`services/` - contains services with application business logic
 
-`src/utils/` - contains auxilary static methods
+`utils/` - contains auxilary static methods
 

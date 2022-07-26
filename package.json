@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npm run lint && npm run test && tsc -p tsconfig.app.json && tsc-alias",
     "start": "dotenv -c local -- node dist/index.js",
-    "dev": "npm run lint && npm run test && cross-env TS_NODE_PROJECT='./tsconfig.app.json' dotenv -c local -- ts-node-dev -r tsconfig-paths/register src/index.ts",
+    "dev": "npm run lint && npm run test && cross-env TS_NODE_PROJECT='./tsconfig.app.json' ts-node-dev -r tsconfig-paths/register src/index.ts",
+    "dev:nodocker": "npm run lint && npm run test && cross-env TS_NODE_PROJECT='./tsconfig.app.json' dotenv -- ts-node-dev -r tsconfig-paths/register src/index.ts",
     "test": "jest --coverage",
     "test:watch": "jest --watchAll",
     "lint": "npx eslint -c .eslintrc.app.yml ./src",
@@ -20,6 +21,7 @@
     "@types/yargs": "^17.0.10",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
+    "cross-env": "^7.0.3",
     "dotenv-cli": "^6.0.0",
     "eslint": "^8.19.0",
     "eslint-config-standard": "^17.0.0",
@@ -34,7 +36,6 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "cross-env": "^7.0.3",
     "inversify": "^6.0.1",
     "joi": "^17.6.0",
     "reflect-metadata": "^0.1.13",

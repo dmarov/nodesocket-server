@@ -9,4 +9,4 @@ services:
       - "4000:80"
     volumes:
       - ./:/server
-    env_file: ./.env.local
+    env_file: ./.env
