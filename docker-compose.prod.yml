@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   socket-server:
+    build:
+      target: image-prod
     ports:
       - "80:80"
-    env_file: ./.env

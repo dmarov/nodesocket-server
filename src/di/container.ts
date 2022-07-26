@@ -29,7 +29,12 @@ import {
   UserIdentityPersistenceService,
 } from "@/services/user-identity-persistence";
 import { args } from "@/utils";
-import { UserIdentityHandlerInterface, UserIdentityHandlerService, UserIdentityValidationInterface, UserIdentityValidationService } from "@/services";
+import {
+  UserIdentityHandlerInterface,
+  UserIdentityHandlerService,
+  UserIdentityValidationInterface,
+  UserIdentityValidationService,
+} from "@/services";
 
 const container = new Container();
 
