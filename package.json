@@ -6,12 +6,13 @@
   "scripts": {
     "build": "npm run lint && npm run test && tsc -p tsconfig.app.json && tsc-alias",
     "start": "dotenv -c local -- node dist/index.js",
-    "dev": "npm run lint && npm run test && cross-env TS_NODE_PROJECT='./tsconfig.app.json' ts-node-dev -r tsconfig-paths/register src/index.ts",
-    "dev:nodocker": "npm run lint && npm run test && cross-env TS_NODE_PROJECT='./tsconfig.app.json' dotenv -- ts-node-dev -r tsconfig-paths/register src/index.ts",
+    "dev": "npm run _preprocessor && cross-env TS_NODE_PROJECT='./tsconfig.app.json' ts-node-dev -r tsconfig-paths/register src/index.ts",
+    "dev:nodocker": "npm run _preprocessor && cross-env TS_NODE_PROJECT='./tsconfig.app.json' dotenv -- ts-node-dev -r tsconfig-paths/register src/index.ts",
     "test": "jest --coverage",
     "test:watch": "jest --watchAll",
     "lint": "npx eslint -c .eslintrc.app.yml ./src",
-    "lint:fix": "npx eslint --fix -c .eslintrc.app.yml ./src"
+    "lint:fix": "npx eslint --fix -c .eslintrc.app.yml ./src",
+    "_preprocessor": "npm run lint && npm run test"
   },
   "author": "Dmitry Marov",
   "license": "ISC",
