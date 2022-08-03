@@ -10,11 +10,19 @@ function factory() {
   return service;
 }
 
+function factoryLimit() {
+  const db = new RamDb();
+  const service = new UserIdentityPersistenceService(db, 3);
+  service.initIdentities();
+
+  return service;
+}
+
 test("user identities initialized correctly", () => {
   const service = factory();
   const result = service.getIdentities();
   const isSuccess = result.unwrap(
-    (s) => Array.isArray(s) && s.length === 0,
+    (s) => typeof s === "object" && Object.keys(s).length === 0,
     () => false,
   );
   expect(isSuccess).toBe(true);
@@ -49,7 +57,7 @@ test("user identitity gets added", () => {
 });
 
 test("user identitities limit works", () => {
-  const service = factory();
+  const service = factoryLimit();
   const user = {
     name: "John Doe",
   };

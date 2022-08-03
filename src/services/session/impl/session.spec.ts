@@ -1,10 +1,12 @@
 import { RamDb } from "@/services/plain-db";
+import { UserIdentityPersistenceService } from "@/services/user-identity-persistence";
 import { SessionService } from "./session";
 
 function factory() {
   const db = new RamDb();
+  const s = new UserIdentityPersistenceService(db, 4);
 
-  return new SessionService(db);
+  return new SessionService(db, s);
 }
 
 test("session gets created", () => {

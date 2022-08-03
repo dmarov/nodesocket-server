@@ -5,9 +5,10 @@ import { MessageHandlerService } from "./message-handler";
 
 function factory() {
   const db = new RamDb();
-  const persistance = new MessagePersistenceService(db);
+  const persistance = new MessagePersistenceService(db, 200);
   persistance.initMessages();
   const validation = new MessageValidationService(3, 15);
+
   return new MessageHandlerService(persistance, validation);
 }
 
