@@ -6,7 +6,7 @@ import { DbUserIdentity } from "@/models/entities";
 import { PlainDb } from "@/services";
 import { UserIdentityPersistenceInterface } from "../user-identity-persistence";
 import { v4 as uuidv4 } from "uuid";
-import { DbKeys } from "@/models/entities/db-keys";
+import { DbKeys } from "@/models/entities";
 
 @injectable()
 export class UserIdentityPersistenceService implements UserIdentityPersistenceInterface {

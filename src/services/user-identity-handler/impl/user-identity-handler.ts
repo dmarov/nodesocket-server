@@ -1,8 +1,10 @@
 import { TYPES } from "@/di/types";
 import { IdentifiableError } from "@/errors";
 import { Result, ResponseUserIdentity } from "@/models/contracts";
-import { UserIdentityPersistenceInterface } from "@/services/user-identity-persistence";
-import { UserIdentityValidationInterface } from "@/services/user-identity-validation";
+import {
+  UserIdentityPersistenceInterface,
+  UserIdentityValidationInterface,
+} from "@/services";
 import { inject, injectable } from "inversify";
 import { UserIdentityHandlerInterface } from "../user-identity-handler";
 

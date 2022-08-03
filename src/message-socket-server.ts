@@ -11,10 +11,10 @@ import { MessagePersistenceInterface } from "@/services";
 export class MessageSocketServer implements SocketServer {
   private readonly server: HttpServer;
   private readonly io: Server;
+  private readonly factory = container.get<(socket: Socket) => SocketHandler>(TYPES.SocketHandlerFactory);
 
   private readonly onConnection = (socket: Socket): void => {
-    const factory = container.get<(socket: Socket) => SocketHandler>(TYPES.SocketHandlerFactory);
-    factory(socket);
+    this.factory(socket);
   };
 
   constructor(

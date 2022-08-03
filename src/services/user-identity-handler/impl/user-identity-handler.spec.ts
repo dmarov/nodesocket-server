@@ -1,7 +1,9 @@
 import { ErrorCodes } from "@/errors";
 import { RamDb } from "@/services/plain-db";
-import { UserIdentityPersistenceService } from "@/services/user-identity-persistence";
-import { UserIdentityValidationService } from "@/services/user-identity-validation";
+import {
+  UserIdentityPersistenceService,
+  UserIdentityValidationService,
+} from "@/services";
 import { UserIdentityHandlerService } from "./user-identity-handler";
 
 function factory() {

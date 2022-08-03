@@ -7,9 +7,7 @@ function factory() {
 test("message validation undefined rejected", () => {
   const service = factory();
 
-  const message: unknown = {
-    textOfMessage: "a",
-  };
+  const message: unknown = {};
 
   expect(service.validateMessage(message).checkSuccess()).toBe(false);
 });
