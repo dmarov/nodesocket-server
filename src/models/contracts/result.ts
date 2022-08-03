@@ -44,4 +44,12 @@ export class Result<S, E> {
   checkSuccess() {
     return this.unwrap(() => true, () => false);
   }
+
+  mergeError<S1>(onSuccess: (s: S) => Result<S1, E>): Result<S1, E> {
+    if (this.checkSuccess()) {
+      return onSuccess(this.successPayload!);
+    } else {
+      return Result.error(this.errorPayload!);
+    }
+  }
 }

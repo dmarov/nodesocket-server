@@ -5,8 +5,9 @@ import { MessagePersistenceService } from "./message-persistence";
 
 function factory() {
   const db = new RamDb();
-  const service = new MessagePersistenceService(db);
+  const service = new MessagePersistenceService(db, 100);
   service.initMessages();
+
   return service;
 }
 

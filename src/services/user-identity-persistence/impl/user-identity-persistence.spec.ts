@@ -2,10 +2,16 @@ import { ErrorCodes } from "@/errors";
 import { RamDb } from "@/services/plain-db";
 import { UserIdentityPersistenceService } from "./user-identity-persistence";
 
-test("user identities initialized correctly", () => {
+function factory() {
   const db = new RamDb();
   const service = new UserIdentityPersistenceService(db, 10);
   service.initIdentities();
+
+  return service;
+}
+
+test("user identities initialized correctly", () => {
+  const service = factory();
   const result = service.getIdentities();
   const isSuccess = result.unwrap(
     (s) => Array.isArray(s) && s.length === 0,
@@ -15,29 +21,23 @@ test("user identities initialized correctly", () => {
 });
 
 test("user identitity add returns success", () => {
-  const db = new RamDb();
-  const service = new UserIdentityPersistenceService(db, 10);
-  service.initIdentities();
-
+  const service = factory();
   const user = {
     name: "John Doe",
   };
-
   const result = service.createIdentity(user);
   expect(result.checkSuccess()).toBe(true);
 });
 
 test("user identitity gets added", () => {
-  const db = new RamDb();
-  const service = new UserIdentityPersistenceService(db, 10);
-  service.initIdentities();
-
+  const service = factory();
   const user = {
     name: "John Doe",
   };
 
   service.createIdentity(user);
-  const result = service.getIdentities();
+  const result = service.getIdentities()
+    .mapSuccess(ids => Object.values(ids));
 
   const isSuccess = result.unwrap(users => {
     return users.length === 1 && users[0].name === "John Doe" && users[0].id.length > 0
@@ -49,10 +49,7 @@ test("user identitity gets added", () => {
 });
 
 test("user identitities limit works", () => {
-  const db = new RamDb();
-  const service = new UserIdentityPersistenceService(db, 3);
-  service.initIdentities();
-
+  const service = factory();
   const user = {
     name: "John Doe",
   };
@@ -69,4 +66,24 @@ test("user identitities limit works", () => {
   })
 
   expect(isSuccess).toBe(true);
+});
+
+test("user identitity destroy works", () => {
+  const service = factory();
+  const user = {
+    name: "John Doe",
+  };
+
+  service
+    .createIdentity(user)
+    .mapSuccess(user => {
+      service.destroyIdentity(user.id);
+      const isSuccess = service.getIdentity(user.id)
+        .unwrap(() => {
+          return false;
+        }, e => {
+          return e.id === ErrorCodes.NoEntryExist;
+        });
+      expect(isSuccess).toBe(true);
+    });
 });

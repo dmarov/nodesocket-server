@@ -2,7 +2,7 @@ import { inject, injectable } from "inversify";
 import { TYPES } from "@/di/types";
 import { IdentifiableError } from "@/errors";
 import { ApiMessage } from "@/models/api";
-import { RequestMessage, ResponseMessage, Result } from "@/models/contracts";
+import { ResponseMessage, Result } from "@/models/contracts";
 import {
   MessagePersistenceInterface,
   MessageValidationInterface,
@@ -21,7 +21,7 @@ export class MessageHandlerService implements MessageHandlerInterface {
     return this.messageValidation
       .validateMessage(message)
       .unwrap((message: ApiMessage) => {
-        return this.addValidatedMessage(message);
+        return this.messagePersistence.addMessage(message);
       }, (error) => {
         return Result.error<ResponseMessage, IdentifiableError>(error);
       });
@@ -30,9 +30,5 @@ export class MessageHandlerService implements MessageHandlerInterface {
   getMessages(): Result<ResponseMessage[], IdentifiableError> {
     return this.messagePersistence
       .getMessages();
-  }
-
-  private addValidatedMessage(message: RequestMessage): Result<ResponseMessage, IdentifiableError> {
-    return this.messagePersistence.addMessage(message);
   }
 }

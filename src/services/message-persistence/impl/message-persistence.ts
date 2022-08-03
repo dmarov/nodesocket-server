@@ -3,7 +3,6 @@ import { TYPES } from "@/di/types";
 import { IdentifiableError } from "@/errors";
 import { Result, RequestMessage } from "@/models/contracts";
 import { DbMessage } from "@/models/entities";
-import { args } from "@/utils";
 import { PlainDb } from "@/services";
 import { MessagePersistenceInterface } from "../message-persistence";
 import { DbKeys } from "@/models/entities/db-keys";
@@ -15,6 +14,7 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
 
   constructor(
     @inject(TYPES.PlainDb) private readonly plainDb: PlainDb,
+    @inject(TYPES.BufferSize) private readonly bufferSize: number,
   ) { }
 
   addMessage(message: RequestMessage): Result<DbMessage, IdentifiableError> {
@@ -51,7 +51,7 @@ export class MessagePersistenceService implements MessagePersistenceInterface {
     };
 
     messages.push(newMessage);
-    messages = messages.slice(-1 * args.bufferSize);
+    messages = messages.slice(-1 * this.bufferSize);
 
     return this.plainDb.update(this.dbKey, messages)
       .mapSuccess(() => {

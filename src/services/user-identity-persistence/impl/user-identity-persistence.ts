@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "@/di/types";
-import { IdentifiableError, LimitExceededError } from "@/errors";
+import { IdentifiableError, LimitExceededError, NoEntryExistError } from "@/errors";
 import { RequestUserIdentity, Result } from "@/models/contracts";
 import { DbUserIdentity } from "@/models/entities";
 import { PlainDb } from "@/services";
@@ -19,12 +19,13 @@ export class UserIdentityPersistenceService implements UserIdentityPersistenceIn
   ) { }
 
   initIdentities(): Result<void, IdentifiableError> {
-    return this.plainDb.add(this.dbKey, [])
+    return this.plainDb.add(this.dbKey, {})
       .mapSuccess(() => {});
   }
 
   createIdentity(identity: RequestUserIdentity): Result<DbUserIdentity, IdentifiableError> {
     return this.getIdentities()
+      .mapSuccess(ids => Object.values(ids))
       .unwrap(identities => {
         if (identities.length >= this.usersLimit) {
           return Result.error(new LimitExceededError());
@@ -36,8 +37,8 @@ export class UserIdentityPersistenceService implements UserIdentityPersistenceIn
       });
   }
 
-  getIdentities(): Result<DbUserIdentity[], IdentifiableError> {
-    return this.plainDb.get<DbUserIdentity[]>(this.dbKey);
+  getIdentities(): Result<{[key: string]: DbUserIdentity}, IdentifiableError> {
+    return this.plainDb.get<{[key: string]: DbUserIdentity}>(this.dbKey)
   }
 
   private appendIdentity(
@@ -54,6 +55,30 @@ export class UserIdentityPersistenceService implements UserIdentityPersistenceIn
     return this.plainDb.update(this.dbKey, identities)
       .mapSuccess(() => {
         return newIdentity;
+      });
+  }
+
+  getIdentity(id: string): Result<DbUserIdentity, IdentifiableError> {
+    return this.getIdentities()
+      .mergeError<DbUserIdentity>(ids => {
+        if (ids[id]) {
+          return Result.success(ids[id]);
+        } else {
+          return Result.error(new NoEntryExistError());
+        }
+      });
+  }
+
+  destroyIdentity(id: string): Result<DbUserIdentity, IdentifiableError> {
+    return this.getIdentities()
+      .mergeError<DbUserIdentity>(ids => {
+        if (ids[id]) {
+          const result = ids[id];
+          delete ids[id];
+          return Result.success(result);
+        } else {
+          return Result.error(new NoEntryExistError());
+        }
       });
   }
 }

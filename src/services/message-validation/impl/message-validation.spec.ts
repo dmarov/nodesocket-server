@@ -12,6 +12,14 @@ test("message validation undefined rejected", () => {
   expect(service.validateMessage(message).checkSuccess()).toBe(false);
 });
 
+test("message validation null object rejected", () => {
+  const service = factory();
+
+  const message: unknown = null;
+
+  expect(service.validateMessage(message).checkSuccess()).toBe(false);
+});
+
 test("message validation minimum limit rejected", () => {
   const service = factory();
 

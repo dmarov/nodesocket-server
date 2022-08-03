@@ -94,10 +94,18 @@ container.bind<number>(TYPES.MessageMaxLength)
 container.bind<number>(TYPES.ServerPort)
   .toConstantValue(args.port);
 
-container.bind<string>(TYPES.AllowedOrigins)
-  .toConstantValue(args.allowedClients as string);
+
+const origins = (args.allowedClients ?? "")
+      .split(" ")
+      .filter(o => !!o);
+
+container.bind<string[]>(TYPES.AllowedOrigins)
+  .toConstantValue(origins);
 
 container.bind<string>(TYPES.ServerAddress)
   .toConstantValue(args.address);
+
+container.bind<number>(TYPES.BufferSize)
+  .toConstantValue(args.bufferSize);
 
 export { container };

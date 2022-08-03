@@ -39,7 +39,9 @@ export const args = yargs
     default: 200,
   })
   .config("config", "yaml configuration file", (filePath) => {
-    const content = fs.readFileSync(path.resolve(filePath), "utf-8");
+    const fullPath = path.resolve(filePath);
+    const content = fs.readFileSync(fullPath, "utf-8");
+
     return yaml.parse(content);
   })
   .env("SERVER")

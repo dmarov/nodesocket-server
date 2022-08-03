@@ -5,7 +5,7 @@ import { container } from "@/di/container";
 import { TYPES } from "@/di/types";
 import { SocketServer } from "@/socket-server";
 import { SocketHandler } from "@/handlers";
-import { MessagePersistenceInterface } from "@/services";
+import { MessagePersistenceInterface, UserIdentityPersistenceInterface } from "@/services";
 
 @injectable()
 export class MessageSocketServer implements SocketServer {
@@ -19,19 +19,16 @@ export class MessageSocketServer implements SocketServer {
 
   constructor(
     @inject(TYPES.MessagePersistenceInterface) private readonly messagePersistence: MessagePersistenceInterface,
+    @inject(TYPES.UserIdentityPersistenceInterface) private readonly userIdentityPersistence: UserIdentityPersistenceInterface,
     @inject(TYPES.ServerPort) private readonly serverPort: number,
     @inject(TYPES.ServerAddress) private readonly serverAddress: string,
-    @inject(TYPES.AllowedOrigins) private readonly origins: string,
+    @inject(TYPES.AllowedOrigins) private readonly origins: string[],
   ) {
     this.server = http.createServer();
 
-    const origin = (this.origins ?? "")
-      .split(" ")
-      .filter(o => !!o);
-
     this.io = new Server(this.server, {
       cors: {
-        origin
+        origin: this.origins,
       },
     });
 
@@ -39,12 +36,19 @@ export class MessageSocketServer implements SocketServer {
   }
 
   listen(): void {
-    this.messagePersistence.initMessages()
+    this.messagePersistence
+      .initMessages()
       .unwrap(() => {
-        this.server.listen(this.serverPort, this.serverAddress, () => {
-          console.info(`listening on ${this.serverAddress}:${this.serverPort}`);
-        });
-      }, (e) => {
+        this.userIdentityPersistence
+          .initIdentities()
+          .unwrap(() => {
+            this.server.listen(this.serverPort, this.serverAddress, () => {
+              console.info(`listening on ${this.serverAddress}:${this.serverPort}`);
+            });
+          }, e => {
+            throw e;
+          });
+      }, e => {
         throw e;
       });
   }

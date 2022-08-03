@@ -35,3 +35,17 @@ test("success result check error works", () => {
   const result = Result.error("error value");
   expect(result.checkSuccess()).toBe(false);
 });
+
+test("error result merge error works", () => {
+  const result = Result.error("error value")
+    .mergeError(() => Result.success({}))
+    .unwrap(() => false, e => e === "error value");
+  expect(result).toBe(true);
+});
+
+test("success result merge error works", () => {
+  const result = Result.success("success value")
+    .mergeError((s) => Result.success(s + " 1"))
+    .unwrap((s) => s === "success value 1", () => false);
+  expect(result).toBe(true);
+});
