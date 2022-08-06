@@ -2,6 +2,11 @@ version: "3.9"
 services:
   socket-server:
     build:
+      context: .
+      dockerfile: ./Dockerfile
       target: image-prod
+    volumes:
+      - ./:/server
     ports:
       - "80:80"
+    env_file: ./.env

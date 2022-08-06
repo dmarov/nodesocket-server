@@ -9,6 +9,7 @@ import {
 } from "@/models/api";
 import {
   MessageHandlerInterface,
+  SessionInterface,
   SettingsInterface,
 } from "@/services";
 
@@ -45,9 +46,10 @@ export class MessageSocketHandler implements SocketHandler {
     private readonly socket: Socket,
     @inject(TYPES.MessageHandlerInterface) private readonly messageHandler: MessageHandlerInterface,
     @inject(TYPES.SettingsInterface) private readonly settingsService: SettingsInterface,
+    @inject(TYPES.SessionInterface) private readonly sessionService: SessionInterface,
   ) {
     this.sessionService
-      .createUserSession(this.socket.id)
+      .createUserSession(this.socket.id, "John Doe")
       .unwrap(() => {
         const settings = this.settingsService.getSettings();
         const initialMessages = this.messageHandler

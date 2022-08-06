@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "@/di/types";
-import { IdentifiableError } from "@/errors";
-import { Result, ResponseUserIdentity } from "@/models/contracts";
+import { IdentifiableError, NoEntryExistError } from "@/errors";
+import { Result, SessionsMap } from "@/models/contracts";
 import { PlainDb, UserIdentityPersistenceInterface } from "@/services";
 import { DbKeys } from "@/models/entities/db-keys";
 import { SessionInterface } from "../session";
@@ -22,25 +22,37 @@ export class SessionService implements SessionInterface {
   }
 
   getUserSession(sessionId: string): Result<string, IdentifiableError> {
-    return this.plainDb.get<{[key: string]: string}>(this.dbKey)
-      .mapSuccess(sessions => {
-        return sessions[sessionId];
-      });
+    return this.plainDb.get<SessionsMap>(this.dbKey)
+      .mergeError((sessions => {
+        return sessions[sessionId] ?
+          Result.success(sessions[sessionId]) :
+          Result.error(new NoEntryExistError());
+      }));
   }
 
-  createUserSession(sessionId: string): Result<string, IdentifiableError> {
+  createUserSession(sessionId: string, name: string): Result<string, IdentifiableError> {
     return this.userIdentityPersistence
-      .createIdentity({name: "User 123"})
-      .mapSuccess(identity => {
-        this.plainDb.add(sessionId, identity.id);
-        return identity.id;
+      .createIdentity({ name })
+      .mergeError(identity => {
+        return this.appendUserSession(sessionId, identity.id)
+          .mapSuccess(() => identity.id);
       });
   }
 
   destroyUserSession(sessionId: string): Result<void, IdentifiableError> {
-    return this.plainDb.get<{[key: string]: string}>(this.dbKey)
+    return this.plainDb.get<SessionsMap>(this.dbKey)
       .mapSuccess(sessions => {
         delete sessions[sessionId];
+      });
+  }
+
+  private appendUserSession(sessionId: string, userId: string): Result<void, IdentifiableError> {
+    return this.plainDb.get<SessionsMap>(this.dbKey)
+      .mergeError(sessions => {
+        sessions[sessionId] = userId;
+
+        return this.plainDb.update(this.dbKey, sessions)
+          .mapSuccess(() => {});
       });
   }
 }

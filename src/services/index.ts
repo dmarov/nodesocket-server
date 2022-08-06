@@ -6,3 +6,4 @@ export * from "./settings";
 export * from "./user-identity-persistence";
 export * from "./user-identity-validation";
 export * from "./user-identity-handler";
+export * from "./session";

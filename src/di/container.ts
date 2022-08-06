@@ -30,6 +30,8 @@ import {
 } from "@/services/user-identity-persistence";
 import { args } from "@/utils";
 import {
+  SessionInterface,
+  SessionService,
   UserIdentityHandlerInterface,
   UserIdentityHandlerService,
   UserIdentityValidationInterface,
@@ -46,8 +48,9 @@ container.bind<interfaces.Factory<SocketHandler>>(TYPES.SocketHandlerFactory)
     return (socket: Socket) => {
       const handlerService = context.container.get<MessageHandlerInterface>(TYPES.MessageHandlerInterface);
       const settingsService = context.container.get<SettingsInterface>(TYPES.SettingsInterface);
+      const sessionService = context.container.get<SessionInterface>(TYPES.SessionInterface);
 
-      return new MessageSocketHandler(socket, handlerService, settingsService);
+      return new MessageSocketHandler(socket, handlerService, settingsService, sessionService);
     };
   });
 
@@ -107,5 +110,9 @@ container.bind<string>(TYPES.ServerAddress)
 
 container.bind<number>(TYPES.BufferSize)
   .toConstantValue(args.bufferSize);
+
+container.bind<SessionInterface>(TYPES.SessionInterface)
+  .to(SessionService)
+  .inSingletonScope();
 
 export { container };

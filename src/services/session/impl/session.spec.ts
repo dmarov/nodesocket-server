@@ -11,7 +11,7 @@ function factory() {
 
 test("session gets created", () => {
   const service = factory();
-  service.createUserSession("123");
+  service.createUserSession("123", "John Doe");
   const result = service.getUserSession("123");
   expect(result.checkSuccess()).toBe(true);
 });

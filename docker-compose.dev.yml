@@ -1,9 +1,0 @@
-version: "3.9"
-services:
-  socket-server:
-    build:
-      target: image-local
-    ports:
-      - "4000:80"
-    volumes:
-      - ./:/server

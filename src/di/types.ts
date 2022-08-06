@@ -16,4 +16,5 @@ export const TYPES = {
   ServerAddress: Symbol.for("ServerAddress"),
   AllowedOrigins: Symbol.for("AllowedOrigins"),
   BufferSize: Symbol.for("BufferSize"),
+  SessionInterface: Symbol.for("SessionInterface"),
 };
