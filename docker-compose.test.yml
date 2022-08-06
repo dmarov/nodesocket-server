@@ -4,9 +4,6 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-      target: image-prod
+      target: image-local-test
     volumes:
       - ./:/server
-    ports:
-      - "80:80"
-    env_file: ./.env

@@ -15,9 +15,7 @@ USER server
 CMD npm install &&\
  npm run dev
 
-FROM base AS image-prod
-COPY . .
-RUN npm install &&\
- npm run build
+FROM base AS image-local-test
 USER server
-CMD node dist/index.js
+CMD npm install &&\
+ npm run test:watch

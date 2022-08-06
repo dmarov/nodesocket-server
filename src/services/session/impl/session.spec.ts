@@ -5,8 +5,12 @@ import { SessionService } from "./session";
 function factory() {
   const db = new RamDb();
   const s = new UserIdentityPersistenceService(db, 4);
+  const service = new SessionService(db, s);
 
-  return new SessionService(db, s);
+  s.initIdentities();
+  service.initUserSessions();
+
+  return service;
 }
 
 test("session gets created", () => {
